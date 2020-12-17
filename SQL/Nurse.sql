@@ -1,0 +1,10 @@
+use HOSPITAL;
+CREATE TABLE HOSPITAL.NURSE(
+    ID  CHAR(9) NOT NULL,
+    LName VARCHAR(15)   NOT NULL,
+    Minit VARCHAR(15),
+    FName VARCHAR(15)   NOT NULL,
+    Bdate Date,
+    Addr VARCHAR(30) NOT NULL,
+    PRIMARY KEY(ID)
+);

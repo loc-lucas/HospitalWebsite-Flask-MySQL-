@@ -1,0 +1,14 @@
+use HOSPITAL;
+CREATE TABLE BOARDEDPATIENT(
+    NxtVisitTime Date NOT NULL, 
+    DepartID INTEGER NOT NULL, 
+    NurseID CHAR(9) NOT NULL,
+    DoctorID CHAR(9) NOT NULL,
+    BoardedTime Date NOT NULL,
+    ID  CHAR(9) NOT NULL,
+    PRIMARY KEY(ID, BoardedTime),
+    FOREIGN KEY(DepartID) REFERENCES department(ID),
+    FOREIGN KEY(NurseID) REFERENCES nurse(ID),
+    FOREIGN KEY(ID) REFERENCES patient(ID),
+    FOREIGN KEY(DoctorID) REFERENCES doctor(ID)
+);

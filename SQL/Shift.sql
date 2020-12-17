@@ -1,0 +1,9 @@
+use HOSPITAL;
+CREATE TABLE HOSPITAL.SHIFT(
+    ID  CHAR(11) NOT NULL,
+    DepartID INTEGER NOT NULL,
+    Dates Date,
+    Periods ENUM('A','B'),
+    PRIMARY KEY(ID),
+    FOREIGN KEY(DepartID) REFERENCES department(ID)
+);

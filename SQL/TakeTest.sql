@@ -1,0 +1,10 @@
+use HOSPITAL;
+create table TakeTest(
+    ExamID INTEGER NOT NULL,
+    TestID INTEGER DEFAULT 0,
+    FTestID INTEGER DEFAULT 0,
+    PRIMARY KEY(TestID, FTestID, ExamID),
+    FOREIGN KEY(ExamID) REFERENCES examination(ID),
+    FOREIGN KEY(TestID) REFERENCES test(ID),
+    FOREIGN KEY(FTestID) REFERENCES ftest(ID)
+);

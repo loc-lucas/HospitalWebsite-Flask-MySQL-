@@ -1,0 +1,12 @@
+use HOSPITAL;
+CREATE TABLE HOSPITAL.DOCTOR(
+    ID  CHAR(9) NOT NULL,
+    LName VARCHAR(15)   NOT NULL,
+    Minit VARCHAR(15),
+    FName VARCHAR(15)   NOT NULL,
+    Bdate Date,
+    Addr VARCHAR(30) NOT NULL,
+    DepartID INTEGER    NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY(DepartID) REFERENCES department(ID)
+);
