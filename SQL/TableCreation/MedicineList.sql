@@ -1,0 +1,5 @@
+use HOSPITAL;
+create table MEDICINELIST(
+    MName VARCHAR(15) NOT NULL,
+    PRIMARY KEY (MName)
+);

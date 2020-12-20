@@ -7,3 +7,6 @@ create table Test(
     Note ENUM('Normal','Abnormal'),
     PRIMARY KEY(ID)
 );
+ALTER TABLE Test
+DROP COLUMN CommonIndex;
+-- ADD FOREIGN KEY (TName) REFERENCES TESTLIST(TName);
