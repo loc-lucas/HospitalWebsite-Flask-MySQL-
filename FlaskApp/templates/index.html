@@ -18,12 +18,12 @@
 <div class="col-lg-4">
 </div>
 <div class="col-lg-4">
-  <form class="form" action="">
+  <form class="form" action="{{url_for('procLog')}}" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label class="control-label" for="id">Id</label>
-      <input class="form-control" id="id" type="text"></input>
+      <input class="form-control" id="id" name="id" type="text"></input>
       <label class="control-label" for="pwd">Password</label>
-      <input class="form-control" id="pwd" type="password"></input>
+      <input class="form-control" id="pwd" name="pwd" type="password"></input>
       <div class="row"><h6></h6></div>
       <button class="btn btn-info" type="submit">Login</button>
     </div>
