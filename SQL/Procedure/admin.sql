@@ -163,3 +163,15 @@ BEGIN
     As TotalTest
     ;
 END;
+
+--add doctor
+DROP PROCEDURE IF EXISTS addDoctor;
+CREATE PROCEDURE addDoctor
+    (IN ssn INT, IN lname VARCHAR(255), IN minit VARCHAR(255), IN fname VARCHAR(255),
+    IN bdate DATE , IN addr VARCHAR(255), IN depart INT)
+BEGIN 
+    INSERT INTO DOCTOR (ID, LName, Minit, FName, Bdate, Addr, DepartID)
+    VALUES
+        (ssn, lname, minit, fname, bdate, addr, depart)
+    ;
+END;

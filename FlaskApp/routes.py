@@ -3,11 +3,31 @@ from .login import *
 @app.route('/')
 @app.route('/login')
 def index():
+    initData()
+    return render_template('index.html') ## put homepage here
+
+@app.route('/admin')
+def admin():
+    session['docData'] = (())
+    session['patData'] = (())
+    session['testData'] = (())
+    return render_template('admin.html', departList=session['departList'],
+    patData=session['patData'], testData=session['testData'])
+
+@app.route('/patient')
+def patient():
+    return render_template('patient.html')
+
+@app.route('/doctor')
+def doctor():
+    return render_template('doctor.html')
+
+def initData():
     # fetch doctor data
     cursor.execute('SELECT * FROM DOCTOR;')
     docList = cursor.fetchall()
     session['docList'] = docList
-
+    
     # fetch patient data
     cursor.execute('SELECT * FROM PATIENT;')
     patList = cursor.fetchall()
@@ -22,20 +42,13 @@ def index():
     cursor.execute('SELECT * FROM PATIENT;')
     filmList = cursor.fetchall()
     session['filmList'] = filmList
-    
-    return render_template('index.html') ## put homepage here
 
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
+    # fetch department data
+    cursor.execute('SELECT * FROM DEPARTMENT;')
+    departList = cursor.fetchall()
+    session['departList'] = departList
 
-@app.route('/patient')
-def patient():
-    return render_template('patient.html')
-
-@app.route('/doctor')
-def doctor():
-    return render_template('doctor.html')
+    print(session['departList'])
     
 
 

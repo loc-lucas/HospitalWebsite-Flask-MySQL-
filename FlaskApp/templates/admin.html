@@ -31,7 +31,7 @@
       <div class="col-sm-7">
         <div class="tab-content">
           <div id="doctor" class="tab-pane fade in active">
-            <form class="form-inline" action="/action_page.php">
+            <form class="form-inline" action="{{url_for('docProc')}}" method="POST">
               <div class="row">
                 <div class="col-sm-12">
                   <h6></h6>
@@ -39,7 +39,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="shift">Shift</label>
-                <select class="form-control" id="shift">
+                <select class="form-control" id="shift" name="shift">
                   <option>Morning</option>
                   <option>Afternoon</option>
                   <option>Both</option>
@@ -47,23 +47,47 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="date" id="dates">
+                <input class="form-control" type="date" id="dates" name="dates">
                 </input>
               </div>
               <div class="form-group">
                 <label class="control-label" for="depart"> Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
+                <select class="form-control" id="depart" name="depart">
+                  {% for item in departList %}
+                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  {% endfor %}
                   <option>All</option>
                 </select>
               </div>
               <button type="submit" class="btn btn-info">Search</button>
             </form>
             <!-- <table>Add table here</table> -->
+            <br></br>
+            <table style="width:100%">       
+              <tr>         
+                <th>ID</th>
+                <th>LName</th>
+                <th>Minit</th>
+                <th>FName</th>
+                <th>Bdate</th>
+                <th>Address</th>
+                <th>Depart</th>                  
+              </tr>       
+              {% for item in docData %}
+              <tr>         
+                <th>{{item[0]}}</th>
+                <th>{{item[1]}}</th>
+                <th>{{item[2]}}</th>
+                <th>{{item[3]}}</th>
+                <th>{{item[4]}}</th>
+                <th>{{item[5]}}</th>
+                <th>{{item[6]}}</th>                  
+              </tr>
+              {% endfor %}
+            </table>
           </div>
           <div id="patient" class="tab-pane fade">
-            <form class="form-inline" action="/action_page.php">
+            <form class="form-inline" action="{{url_for('patProc')}}" method="POST">
               <div class="row">
                 <div class="col-sm-12">
                   <h6></h6>
@@ -71,7 +95,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="shift">State</label>
-                <select class="form-control" id="shift">
+                <select class="form-control" id="shift" name="state">
                   <option>Out</option>
                   <option>Boarded</option>
                   <option>Both</option>
@@ -79,7 +103,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="shift">Shift</label>
-                <select class="form-control" id="shift">
+                <select class="form-control" id="shift" name="shift">
                   <option>Morning</option>
                   <option>Afternoon</option>
                   <option>Both</option>
@@ -87,23 +111,32 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="date" id="dates">
+                <input class="form-control" type="date" id="dates" name="dates">
                 </input>
               </div>
               <div class="form-group">
                 <label class="control-label" for="depart"> Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
+                <select class="form-control" id="depart" name='depart'>
+                  {% for item in departList %}
+                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  {% endfor %}
                   <option>All</option>
                 </select>
               </div>
               <button type="submit" class="btn btn-info">Search</button>
             </form>
             <!-- <table>Add table here</table> -->
+            <br></br>
+            <b>Total Patient:</b>                          
+              {% if patData != (()) %}
+                <strong>{{patData[0][0]}}</strong>
+              {% else %}
+                <strong>0</strong>
+              {% endif %}            
+            </table>
           </div>
           <div id="test" class="tab-pane fade">
-            <form class="form-inline" action="/action_page.php">
+            <form class="form-inline" action="{{url_for('testProc')}}" method="POST">
               <div class="row">
                 <div class="col-sm-12">
                   <h6></h6>
@@ -111,48 +144,57 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="dates" id="dates">
+                <input class="form-control" type="dates" id="dates" name="dates">
                 </input>
               </div>
               <div class="form-group">
                 <label class="control-label" for="depart"> Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
+                <select class="form-control" id="depart" name="depart">
+                  {% for item in departList %}
+                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  {% endfor %}
                   <option>All</option>
                 </select>
               </div>
               <button type="submit" class="btn btn-info">Search</button>
             </form>
             <!-- <table>Add table here</table> -->
+            <br></br>
+            <b>Total Test:</b>
+            {% if testData != (()) %}
+              <strong>{{testData[0][0]}}</strong>
+            {% else %}
+              <strong>0</strong>
+            {% endif %}
           </div>
           <div id="create" class="tab-pane fade">
-            <form class="form" action="">
+            <form class="form" action="{{url_for('addDoc')}}" method="POST">
               <div class="form-group">
                 <label class="control-label" for="ssn">ID (SSN)</label>
-                <input class="form-control" type="text" id="ssn"></input>
+                <input class="form-control" type="text" id="ssn" name="ssn"></input>
                 <div class="row">
                   <div class="col-sm-4">
                     <label class="control-label" for="fname">First Name</label>
-                    <input class="form-control" type="text" id="fname"></input>
+                    <input class="form-control" type="text" id="fname" name="fname"></input>
                   </div>
                   <div class="col-sm-4">
                     <label class="control-label" for"minit">Middle Name</label>
-                    <input class="form-control" type="text" id="minit"></input>
+                    <input class="form-control" type="text" id="minit" name="minit"></input>
                   </div>
                   <div class="col-sm-4">
                     <label class="control-label" for"lname">Last Name</label>
-                    <input class="form-control" type="text" id="lname"></input>
+                    <input class="form-control" type="text" id="lname" name="lname"></input>
                   </div>
                 </div>
                 <label class="control-label" for"bdate">DOB</label>
-                <input class="form-control" type="date" id="bdate"></input>
+                <input class="form-control" type="date" id="bdate" name="bdate"></input>
                 <label class="control-label" for"addr">Address</label>
-                <input class="form-control" type="text" id="addr"></input>
+                <input class="form-control" type="text" id="addr" name="addr"></input>
                 <label class="control-label" for"depart">Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
+                <select class="form-control" id="depart" name="depart">
+                  {% for item in departList %}
+                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  {% endfor %}
                 </select>
               </div>
               <button type="submit" class="btn btn-info">Create</button>

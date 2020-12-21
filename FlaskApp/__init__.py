@@ -14,24 +14,4 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-# # fetch doctor data
-# cursor.execute('SELECT * FROM DOCTOR;')
-# docList = cursor.fetchall()
-# session['docList'] = docList
-
-# # fetch patient data
-# cursor.execute('SELECT * FROM PATIENT;')
-# patList = cursor.fetchall()
-# session['patList'] = patList
-
-# # fetch test data
-# cursor.execute('SELECT * FROM TESTLIST;')
-# testList = cursor.fetchall()
-# session['testList'] = testList
-
-# # fetch film test data
-# cursor.execute('SELECT * FROM PATIENT;')
-# filmList = cursor.fetchall()
-# session['filmList'] = filmList
-
 from FlaskApp import routes
