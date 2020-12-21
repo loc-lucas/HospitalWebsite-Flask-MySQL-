@@ -23,30 +23,35 @@ def doctor():
     return render_template('doctor.html')
 
 def initData():
+    # fetch user data
+    cursor.execute('SELECT * FROM USR;')
+    data = cursor.fetchall()
+    session['usrList'] = data
+
     # fetch doctor data
     cursor.execute('SELECT * FROM DOCTOR;')
-    docList = cursor.fetchall()
-    session['docList'] = docList
+    data = cursor.fetchall()
+    session['docList'] = data
     
     # fetch patient data
     cursor.execute('SELECT * FROM PATIENT;')
-    patList = cursor.fetchall()
-    session['patList'] = patList
+    data = cursor.fetchall()
+    session['patList'] = data
 
     # fetch test data
     cursor.execute('SELECT * FROM TESTLIST;')
-    testList = cursor.fetchall()
-    session['testList'] = testList
+    data = cursor.fetchall()
+    session['testList'] = data
 
     # fetch film test data
     cursor.execute('SELECT * FROM PATIENT;')
-    filmList = cursor.fetchall()
-    session['filmList'] = filmList
+    data = cursor.fetchall()
+    session['filmList'] = data
 
     # fetch department data
     cursor.execute('SELECT * FROM DEPARTMENT;')
-    departList = cursor.fetchall()
-    session['departList'] = departList
+    data = cursor.fetchall()
+    session['departList'] = data
 
     print(session['departList'])
     
