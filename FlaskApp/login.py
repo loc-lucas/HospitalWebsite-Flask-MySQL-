@@ -10,7 +10,9 @@ def procLog():
         if usr_id == item[0] and  usr_pwd == item[1] and item[2] == 'admin':
             return redirect(url_for('admin'))
         elif usr_id == item[0] and  usr_pwd == item[1] and item[2] == 'doctor':
+            session['id'] = usr_id
             return redirect(url_for('doctor'))
         elif usr_id == item[0] and  usr_pwd == item[1] and item[2] == 'patient':
+            session['id'] = usr_id
             return redirect(url_for('patient'))                       
     return 'Cant find any'

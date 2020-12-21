@@ -17,8 +17,8 @@ def docProc():
         cursor.callproc('getDocICPerDate', (dates, shift))
     else:         
         cursor.callproc('getDocICDate', (dates))
+
     data = cursor.fetchall()
-    
     session['docData'] = data
     return redirect(url_for('rerenderAdmin'))
 
@@ -45,7 +45,6 @@ def patProc():
     session['patData'] = data
     return redirect(url_for('rerenderAdmin'))    
 
-
 @app.route('/testProc', methods=['POST'])
 def testProc():            
     dates = request.form['dates'] 
@@ -69,7 +68,7 @@ def addDoc():
     bdate = request.form['bdate']
     addr = request.form['addr']
     depart = request.form['depart']
-    print(ssn, lname, minit, fname, bdate, addr, depart)
+        
     cursor.callproc('addDoctor', (ssn, lname, minit, fname, bdate, addr, depart))
     conn.commit()    
     return redirect(url_for('rerenderAdmin'))
