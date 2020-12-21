@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>The Hospital You Need</h1>
+    <p>Administrator</p>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a data-toggle="pill" href="#doctor">Doctor</a></li>
+          <li><a data-toggle="pill" href="#patient">Patient</a></li>
+          <li><a data-toggle="pill" href="#test">Test</a></li>
+          <li><a data-toggle="pill" href="#create">Create new user</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-7">
+        <div class="tab-content">
+          <div id="doctor" class="tab-pane fade in active">
+            <form class="form-inline" action="/action_page.php">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6></h6>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="shift">Shift</label>
+                <select class="form-control" id="shift">
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Both</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="dates"> Dates</label>
+                <input class="form-control" type="date" id="dates">
+                </input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="depart"> Department</label>
+                <select class="form-control" id="depart">
+                  <option>Depart1</option>
+                  <option>Depart2</option>
+                  <option>All</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-info">Search</button>
+            </form>
+            <!-- <table>Add table here</table> -->
+          </div>
+          <div id="patient" class="tab-pane fade">
+            <form class="form-inline" action="/action_page.php">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6></h6>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="shift">State</label>
+                <select class="form-control" id="shift">
+                  <option>Out</option>
+                  <option>Boarded</option>
+                  <option>Both</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="shift">Shift</label>
+                <select class="form-control" id="shift">
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Both</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="dates"> Dates</label>
+                <input class="form-control" type="date" id="dates">
+                </input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="depart"> Department</label>
+                <select class="form-control" id="depart">
+                  <option>Depart1</option>
+                  <option>Depart2</option>
+                  <option>All</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-info">Search</button>
+            </form>
+            <!-- <table>Add table here</table> -->
+          </div>
+          <div id="test" class="tab-pane fade">
+            <form class="form-inline" action="/action_page.php">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6></h6>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="dates"> Dates</label>
+                <input class="form-control" type="dates" id="dates">
+                </input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="depart"> Department</label>
+                <select class="form-control" id="depart">
+                  <option>Depart1</option>
+                  <option>Depart2</option>
+                  <option>All</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-info">Search</button>
+            </form>
+            <!-- <table>Add table here</table> -->
+          </div>
+          <div id="create" class="tab-pane fade">
+            <form class="form" action="">
+              <div class="form-group">
+                <label class="control-label" for="ssn">ID (SSN)</label>
+                <input class="form-control" type="text" id="ssn"></input>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label class="control-label" for="fname">First Name</label>
+                    <input class="form-control" type="text" id="fname"></input>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="control-label" for"minit">Middle Name</label>
+                    <input class="form-control" type="text" id="minit"></input>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="control-label" for"lname">Last Name</label>
+                    <input class="form-control" type="text" id="lname"></input>
+                  </div>
+                </div>
+                <label class="control-label" for"bdate">DOB</label>
+                <input class="form-control" type="date" id="bdate"></input>
+                <label class="control-label" for"addr">Address</label>
+                <input class="form-control" type="text" id="addr"></input>
+                <label class="control-label" for"depart">Department</label>
+                <select class="form-control" id="depart">
+                  <option>Depart1</option>
+                  <option>Depart2</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-info">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
