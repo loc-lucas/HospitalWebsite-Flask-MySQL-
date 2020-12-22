@@ -1,12 +1,13 @@
 use HOSPITAL;
-CREATE TABLE HOSPITAL.DOCTOR(
+drop table patient;
+CREATE TABLE PATIENT(
     ID  CHAR(9) NOT NULL,
+    InsurID CHAR(9),
     LName VARCHAR(15)   NOT NULL,
     Minit VARCHAR(15),
     FName VARCHAR(15)   NOT NULL,
-    Bdate Date,
+    Bdate Date NOT NULL,
     Addr VARCHAR(30) NOT NULL,
-    DepartID INTEGER    NOT NULL,
-    PRIMARY KEY(ID),
-    FOREIGN KEY(DepartID) REFERENCES department(ID)
+    Sts ENUM('Boarded','Out'),
+    PRIMARY KEY(ID)
 );

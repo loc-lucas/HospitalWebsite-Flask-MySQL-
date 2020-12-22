@@ -13,7 +13,7 @@ create table BoardedRecord(
     LeaveNote VARCHAR(256),
     LeaveCond VARCHAR(256),
     PRIMARY KEY(BoardedTime, PatientID),
-    FOREIGN KEY(LeaveAsnDocID) REFERENCES doctor(ID),
-    FOREIGN KEY(AsnDocID) REFERENCES doctor(ID),
-    FOREIGN KEY(PatientID,BoardedTime) REFERENCES boardedpatient(ID,BoardedTime)
+    FOREIGN KEY(LeaveAsnDocID) REFERENCES DOCTOR(ID),
+    FOREIGN KEY(AsnDocID) REFERENCES DOCTOR(ID),
+    FOREIGN KEY(PatientID,BoardedTime) REFERENCES BOARDEDPATIENT(ID,BoardedTime)
 );
