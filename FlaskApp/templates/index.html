@@ -19,8 +19,10 @@
 </div>
 <div class="col-lg-4">
   <form class="form" action="{{url_for('procLog')}}" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-      <label class="control-label" for="id">Id</label>
+    <div class="form-group">      
+      <strong style="color:rgb(255, 0, 0);">{{msg}}</strong>
+      <br></br>
+      <label class="control-label" for="id">ID</label>
       <input class="form-control" id="id" name="id" type="text"></input>
       <label class="control-label" for="pwd">Password</label>
       <input class="form-control" id="pwd" name="pwd" type="password"></input>

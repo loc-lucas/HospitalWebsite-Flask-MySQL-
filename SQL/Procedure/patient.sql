@@ -4,11 +4,22 @@ CREATE PROCEDURE updateInfo
     (IN pID INT, IN insurID INT, IN lname VARCHAR(255), IN minit VARCHAR(255), IN fname VARCHAR(255), IN bdate DATE, IN addr VARCHAR(255))
 BEGIN 
     UPDATE PATIENT
-    SET InsurID = insurID, LName = lname, Minit = minit, Fname = fname, Bdate = bdate, Addr = addr
+    SET
+        InsurID = CASE WHEN LEN(insurID) > 0 THEN insurID END,
+        LName = CASE WHEN LEN(lname) > 0 THEN lname END,
+        Minit = CASE WHEN LEN(minit) > 0 THEN minit END,
+        FName = CASE WHEN LEN(fname) > 0 THEN fname END,
+        Bdate = CASE WHEN LEN(bdate) > 0 THEN bdate END,
+        Addr = CASE WHEN LEN(addr) > 0 THEN addr END
     WHERE ID = pID
     ;
 END;
-
+    -- IF lname != '' THEN SET LName = insurID END IF;
+    -- IF minit != '' THEN SET Minit = insurID END IF;
+    -- IF fname != '' THEN SET Fname = insurID END IF;
+    -- IF bdate != '' THEN SET Bdate = insurID END IF;
+    -- IF addr != '' THEN SET Addr = insurID END IF;
+-- SET InsurID = insurID, LName = lname, Minit = minit, Fname = fname, Bdate = bdate, Addr = addr
 --2
 DROP PROCEDURE IF EXISTS getMedLatest;
 CREATE PROCEDURE getMedLatest
