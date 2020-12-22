@@ -2,9 +2,13 @@ from FlaskApp import *
 # import datetime
 @app.route('/docProc', methods=['POST'])
 def docProc():            
-    shift = request.form['shift']
     dates = request.form['dates'] 
-    depart = request.form['depart']            
+    if dates == '': 
+        session['msg'] = 'Please choose date'
+        return redirect(url_for('rerenderAdmin'))
+
+    shift = request.form['shift']
+    depart = request.form['depart']                
 
     if shift == 'Morning': shift = 'A'
     elif shift == 'Afternoon': shift = 'B'
@@ -78,5 +82,5 @@ def addDoc():
 
 @app.route('/admin/proc', methods=['GET', 'POST'])
 def rerenderAdmin():    
-    return render_template('admin.html', departList=session['departList'], 
+    return render_template('admin.html', departList=session['departList'], msg=session['msg'],
     docData=session['docData'], patData=session['patData'], testData=session['testData'], tabidx=session['tab'])

@@ -25,7 +25,7 @@ DROP PROCEDURE IF EXISTS getMedLatest;
 CREATE PROCEDURE getMedLatest
     (IN pID INT)
 BEGIN 
-    SELECT M.MName 
+    SELECT *
     FROM MEDICINE AS M
     JOIN PATIENT AS P on P.ID = pID
     JOIN EXAMINATION AS E on E.PatientID = P.ID
@@ -47,7 +47,7 @@ DROP PROCEDURE IF EXISTS getMedAll;
 CREATE PROCEDURE getMedAll
     (IN pID INT)
 BEGIN 
-    SELECT m.MName
+    SELECT m.*
     FROM MEDICINE as m
     JOIN PATIENT as p ON  p.ID = pID
     JOIN EXAMINATION as e ON e.PatientID = p.ID
@@ -76,6 +76,26 @@ BEGIN
         )
     ;
 END;
+
+DROP PROCEDURE IF EXISTS getFTestResLatest;
+CREATE PROCEDURE getFTestResLatest
+    (IN pID INT)
+BEGIN 
+    SELECT t.*
+    FROM Ftest as t
+    JOIN PATIENT as p ON p.ID = pID 
+    JOIN EXAMINATION as e ON e.PatientID = p.ID
+    JOIN TakeTest as tt ON tt.ExamID = e.ID AND tt.TestID = t.ID
+    JOIN SHIFT as s ON s.ID = e.ShiftID
+        AND s.Dates = (
+            SELECT s2.Dates
+            FROM SHIFT AS s2
+            JOIN PATIENT AS p2 ON p2.ID = pID     
+            JOIN EXAMINATION AS e2 ON e2.ShiftID = s2.ID AND e2.PatientID = p2.ID                                                   
+            ORDER BY s.Dates DESC limit 1
+        )
+    ;
+END;
 -- CALL getTestResLatest(123456789);
 -- -- --5
 DROP PROCEDURE IF EXISTS getAllTest;
@@ -91,17 +111,29 @@ BEGIN
 END; 
 -- CALL getAllTest(123456789);
 
+DROP PROCEDURE IF EXISTS getAllFTest;
+CREATE PROCEDURE getAllFTest 
+    (IN pID INT)
+BEGIN 
+    SELECT t.*
+    FROM Ftest as t 
+    JOIN PATIENT as p ON p.ID = pID
+    JOIN EXAMINATION as e ON e.PatientID = p.ID    
+    JOIN TakeTest as tt ON tt.ExamID = e.ID AND tt.TestID = t.ID     
+    ;   
+END; 
+
 -- --6
 DROP PROCEDURE IF EXISTS getAllAbnorTest;
 CREATE PROCEDURE getAllAbnorTest
-    (IN pID INT, IN tName VARCHAR(255))
+    (IN pID INT)
 BEGIN 
     SELECT t.*
     FROM Test as t
     JOIN PATIENT as p ON p.ID = pID
     JOIN EXAMINATION as e ON e.PatientID = p.ID
     JOIN TakeTest as tt ON  tt.TestID = t.ID AND tt.ExamID = e.ID
-    WHERE t.TName = tName and t.Note = 'Abnormal'             
+    WHERE t.Note = 'Abnormal'             
     ;
 END;
 -- CALL getAllAbnorTest(123456789,'Thigh');

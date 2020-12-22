@@ -1,5 +1,6 @@
 from FlaskApp import *
 from .login import *
+from .patientProc import *
 @app.route('/')
 @app.route('/login')
 def index():    
@@ -14,6 +15,7 @@ def admin():
         session['id'] = ''
         session['loggedIn'] = False
         return render_template('index.html', msg='This Account has no privilege to access this site! Please log in another account')
+    session['msg'] = ''
     session['docData'] = (())
     session['patData'] = (())
     session['testData'] = (())
@@ -29,7 +31,7 @@ def patient():
         session['id'] = ''
         session['loggedIn'] = False
         return render_template('index.html', msg='This Account has no privilege to access this site! Please log in another account')
-    return render_template('patient.html')
+    return initPatient()
 
 @app.route('/doctor')
 def doctor():

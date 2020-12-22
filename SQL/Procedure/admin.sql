@@ -3,7 +3,7 @@ DROP PROCEDURE IF EXISTS getDocAtSpecificDSD;
 CREATE PROCEDURE getDocAtSpecificDSD
     (IN dates Date, IN dID INT, IN periods CHAR(1))
 BEGIN    
-    SELECT Distinct D.*
+    SELECT Distinct D.*, DP.DName
     FROM DOCTOR as D
     JOIN SHIFT as S ON 
         S.Dates = dates
@@ -12,6 +12,7 @@ BEGIN
     JOIN OnDuty as O ON 
         O.ShiftID = S.ID 
         AND O.DocID = D.ID
+    JOIN DEPARTMENT as DP ON DP.ID = D.DepartID
     ;
 END;
 -- CALL getDocAtSpecificDSD('2020-11-23', 1, 'A');
@@ -20,12 +21,13 @@ DROP PROCEDURE IF EXISTS getDocICDateDepart;
 CREATE PROCEDURE getDocICDateDepart
     (IN dates DATE, IN departID INT)
 BEGIN
-    SELECT Distinct D.*
+    SELECT Distinct D.*, DP.DName
     FROM DOCTOR as D
     JOIN SHIFT as S ON S.Dates = dates 
         AND S.DepartID = departID
     JOIN OnDuty as O ON  O.DocID = D.ID 
         AND S.ID = O.ShiftID
+    JOIN DEPARTMENT as DP ON DP.ID = D.DepartID        
     ;
 END;
 -- CALL getDocICDateDepart('2020-11-23',1);
@@ -34,10 +36,11 @@ DROP PROCEDURE IF EXISTS getDocICPerDate;
 CREATE PROCEDURE getDocICPerDate
     (IN dates DATE, IN peri CHAR(1))
 BEGIN 
-    SELECT Distinct D.*
+    SELECT Distinct D.*, DP.DName
     FROM DOCTOR as D 
     JOIN SHIFT as S ON S.Dates = dates AND S.Periods = peri
     JOIN OnDuty as O ON S.ID = O.ShiftID AND O.DocID = D.ID
+    JOIN DEPARTMENT as DP ON DP.ID = D.DepartID   
     ;
 END;
 
@@ -47,10 +50,11 @@ DROP PROCEDURE IF EXISTS getDocICDate;
 CREATE PROCEDURE getDocICDate
     (IN dates DATE)
 BEGIN 
-    SELECT Distinct D.*
+    SELECT Distinct D.*, DP.Dname
     FROM DOCTOR as D 
     JOIN SHIFT as S ON S.Dates = dates 
     JOIN OnDuty as O ON S.ID = O.ShiftID AND O.DocID = D.ID
+    JOIN DEPARTMENT as DP ON DP.ID = D.DepartID   
     ;
 END;
 
