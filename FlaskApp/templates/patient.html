@@ -14,7 +14,7 @@
 
   <div class="jumbotron text-center">
     <h1>The Hospital You Need</h1>
-    <p>Administrator</p>
+    <p>Patient</p>
   </div>
 
   <div class="container-fluid">
@@ -22,141 +22,184 @@
       <div class="col-sm-1"></div>
       <div class="col-sm-3">
         <ul class="nav nav-pills nav-stacked">
-          <li class="active"><a data-toggle="pill" href="#doctor">Doctor</a></li>
-          <li><a data-toggle="pill" href="#patient">Patient</a></li>
-          <li><a data-toggle="pill" href="#test">Test</a></li>
-          <li><a data-toggle="pill" href="#create">Create new user</a></li>
+          <li class="active"><a data-toggle="pill" href="#profile">Profile</a></li>
+          <li><a data-toggle="pill" href="#last">Last Examination</a></li>
+          <li><a data-toggle="pill" href="#all">All Examination</a></li>
         </ul>
       </div>
       <div class="col-sm-7">
         <div class="tab-content">
-          <div id="doctor" class="tab-pane fade in active">
-            <form class="form-inline" action="/action_page.php">
-              <div class="row">
-                <div class="col-sm-12">
-                  <h6></h6>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="shift">Shift</label>
-                <select class="form-control" id="shift">
-                  <option>Morning</option>
-                  <option>Afternoon</option>
-                  <option>Both</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="date" id="dates">
-                </input>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="depart"> Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
-                  <option>All</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-info">Search</button>
-            </form>
-            <!-- <table>Add table here</table> -->
+          <div id="last" class="tab-pane fade">
+            <div class="row">
+              <h4><b>Medicine</b></h4>
+              <!-- result table here -->
+            </div>
+            <div class="row">
+              <h4><b>Test</b></h4>
+              <!-- result table here -->
+            </div>
+            <div class="row">
+              <h4><b>Film</b></h4>
+              <!-- result table here -->
+            </div>
+            <div class="row">
+              <h4><b>Doctor</b></h4>
+              <!-- result table here -->
+            </div>
+            <div class="row">
+              <h4><b>Diet</b></h4>
+              <!-- result table here -->
+            </div>
           </div>
-          <div id="patient" class="tab-pane fade">
-            <form class="form-inline" action="/action_page.php">
-              <div class="row">
-                <div class="col-sm-12">
-                  <h6></h6>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="shift">State</label>
-                <select class="form-control" id="shift">
-                  <option>Out</option>
-                  <option>Boarded</option>
-                  <option>Both</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="shift">Shift</label>
-                <select class="form-control" id="shift">
-                  <option>Morning</option>
-                  <option>Afternoon</option>
-                  <option>Both</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="date" id="dates">
-                </input>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="depart"> Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
-                  <option>All</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-info">Search</button>
-            </form>
-            <!-- <table>Add table here</table> -->
-          </div>
-          <div id="test" class="tab-pane fade">
-            <form class="form-inline" action="/action_page.php">
-              <div class="row">
-                <div class="col-sm-12">
-                  <h6></h6>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="dates" id="dates">
-                </input>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="depart"> Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
-                  <option>All</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-info">Search</button>
-            </form>
-            <!-- <table>Add table here</table> -->
-          </div>
-          <div id="create" class="tab-pane fade">
+          <div id="profile" class="tab-pane fade in active">
             <form class="form" action="">
               <div class="form-group">
                 <label class="control-label" for="ssn">ID (SSN)</label>
-                <input class="form-control" type="text" id="ssn"></input>
+                <input class="form-control" type="text" id="ssn" placeholder="123456789"></input>
+                <label class="control-label" for="insur">Insurance ID</label>
+                <input class="form-control" type="text" id="insur" placeholder="987654321"></input>
                 <div class="row">
                   <div class="col-sm-4">
                     <label class="control-label" for="fname">First Name</label>
-                    <input class="form-control" type="text" id="fname"></input>
+                    <input class="form-control" type="text" id="fname" placeholder="Loc"></input>
                   </div>
                   <div class="col-sm-4">
                     <label class="control-label" for"minit">Middle Name</label>
-                    <input class="form-control" type="text" id="minit"></input>
+                    <input class="form-control" type="text" id="minit" placeholder="Quang"></input>
                   </div>
                   <div class="col-sm-4">
                     <label class="control-label" for"lname">Last Name</label>
-                    <input class="form-control" type="text" id="lname"></input>
+                    <input class="form-control" type="text" id="lname" placeholder="Bui"></input>
                   </div>
                 </div>
                 <label class="control-label" for"bdate">DOB</label>
-                <input class="form-control" type="date" id="bdate"></input>
+                <input class="form-control" type="date" id="bdate" placeholder="01/22/2000"></input>
                 <label class="control-label" for"addr">Address</label>
-                <input class="form-control" type="text" id="addr"></input>
-                <label class="control-label" for"depart">Department</label>
-                <select class="form-control" id="depart">
-                  <option>Depart1</option>
-                  <option>Depart2</option>
-                </select>
+                <input class="form-control" type="text" id="addr" placeholder="203 Nguyen Trai"></input>
               </div>
-              <button type="submit" class="btn btn-info">Create</button>
+              <button type="submit" class="btn btn-info">Submit</button>
             </form>
+          </div>
+          <div id="all" class="tab-pane fade">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#med">Medicine</a></li>
+              <li><a data-toggle="tab" href="#test">Test</a></li>
+              <li><a data-toggle="tab" href="#film">Film Test</a></li>
+              <li><a data-toggle="tab" href="#abnormal">Abnormal Test</a></li>
+              <li><a data-toggle="tab" href="#doctor">Doctor</a></li>
+              <li><a data-toggle="tab" href="#diet">Diet</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="med" class="tab-pane fade in active">
+                <!-- medicine of all exam here -->
+                <table class="table table-hover">       
+                  <head>
+                  <tr style="background-color: cornflowerblue;">         
+                    <th>Name</th>
+                                   
+                  </tr>       
+                  </head>
+                  <body>
+                  <!-- {% for item in docData %}
+                  <tr>         
+                            
+                  </tr>
+                  {% endfor %} -->
+                  </body>
+                </table>
+              </div>
+              <div id="test" class="tab-pane fade">
+                <!-- all tests here -->
+                <table class="table table-hover">       
+                  <head>
+                  <tr style="background-color: cornflowerblue;">         
+                    <th>Name</th>
+                                   
+                  </tr>       
+                  </head>
+                  <body>
+                  <!-- {% for item in docData %}
+                  <tr>         
+                            
+                  </tr>
+                  {% endfor %} -->
+                  </body>
+                </table>
+              </div>
+              <div id="film" class="tab-pane fade">
+                <!-- all films -->
+                <table class="table table-hover">       
+                  <head>
+                  <tr style="background-color: cornflowerblue;">         
+                    <th>Name</th>
+                                   
+                  </tr>       
+                  </head>
+                  <body>
+                  <!-- {% for item in docData %}
+                  <tr>         
+                            
+                  </tr>
+                  {% endfor %} -->
+                  </body>
+                </table>
+              </div>
+              <div id="abnormal" class="tab-pane fade">
+                <!-- all abnormal test -->
+                <table class="table table-hover">       
+                  <head>
+                  <tr style="background-color: cornflowerblue;">         
+                    <th>Name</th>
+                                   
+                  </tr>       
+                  </head>
+                  <body>
+                  <!-- {% for item in docData %}
+                  <tr>         
+                            
+                  </tr>
+                  {% endfor %} -->
+                  </body>
+                </table>
+              </div>
+              <div id="doctor" class="tab-pane fade">
+                <!-- all doctors -->
+                <table class="table table-hover">       
+                  <head>
+                  <tr style="background-color: cornflowerblue;">         
+                    <th>Name</th>
+                                   
+                  </tr>       
+                  </head>
+                  <body>
+                  <!-- {% for item in docData %}
+                  <tr>         
+                            
+                  </tr>
+                  {% endfor %} -->
+                  </body>
+                </table>
+              </div>
+              <div id="diet" class="tab-pane fade">
+                <!-- all diets -->
+                <table class="table table-hover">       
+                  <head>
+                  <tr style="background-color: cornflowerblue;">         
+                    <th>Name</th>
+                                   
+                  </tr>       
+                  </head>
+                  <body>
+                  <!-- {% for item in docData %}
+                  <tr>         
+                            
+                  </tr>
+                  {% endfor %} -->
+                  </body>
+                </table>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@
 
   <div class="jumbotron text-center">
     <h1>The Hospital You Need</h1>
-    <p>Administrator</p>
+    <p>Administrator</p>    
   </div>
 
   <div class="container-fluid">
@@ -22,15 +22,16 @@
       <div class="col-sm-1"></div>
       <div class="col-sm-3">
         <ul class="nav nav-pills nav-stacked">
-          <li ><a data-toggle="pill" href="#doctor">Doctor</a></li>
-          <li class="active"><a data-toggle="pill" href="#patient">Patient</a></li>
-          <li><a data-toggle="pill" href="#test">Test</a></li>
-          <li><a data-toggle="pill" href="#create">Create new user</a></li>
+          <li {% if tabidx == "doc" %} class="active" {% endif %}><a data-toggle="pill" href="#doctor">Doctor</a></li>
+          <li {% if tabidx == "pat" %} class="active" {% endif %}><a data-toggle="pill" href="#patient">Patient</a></li>
+          <li {% if tabidx == "test" %} class="active" {% endif %}><a data-toggle="pill" href="#test">Test</a></li>
+          <li {% if tabidx == "create" %} class="active" {% endif %}><a data-toggle="pill" href="#create">Create new user</a></li>
         </ul>
       </div>
       <div class="col-sm-7">
         <div class="tab-content">
-          <div id="doctor" class="tab-pane fade in active">
+          <div id="doctor" {% if tabidx == "doc" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+            <strong style="color:rgb(255, 0, 0);">{{msg}}</strong>
             <form class="form-inline" action="{{url_for('docProc')}}" method="POST">
               <div class="row">
                 <div class="col-sm-12">
@@ -54,7 +55,7 @@
                 <label class="control-label" for="depart"> Department</label>
                 <select class="form-control" id="depart" name="depart">
                   {% for item in departList %}
-                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  <option value="{{item[0]}}">{{item[1]}}</option>                  
                   {% endfor %}
                   <option>All</option>
                 </select>
@@ -63,30 +64,35 @@
             </form>
             <!-- <table>Add table here</table> -->
             <br></br>
-            <table style="width:100%">       
-              <tr>         
+            <table class="table table-hover">       
+              <head>
+              <tr style="background-color: cornflowerblue;">         
                 <th>ID</th>
-                <th>LName</th>
-                <th>Minit</th>
-                <th>FName</th>
-                <th>Bdate</th>
+                <th>Last Name</th>
+                <th>Middle Name</th>
+                <th>First Name</th>
+                <th>DOB</th>
                 <th>Address</th>
-                <th>Depart</th>                  
+                <th>Department</th>                  
               </tr>       
+              </head>
+              <body>
               {% for item in docData %}
               <tr>         
-                <th>{{item[0]}}</th>
-                <th>{{item[1]}}</th>
-                <th>{{item[2]}}</th>
-                <th>{{item[3]}}</th>
-                <th>{{item[4]}}</th>
-                <th>{{item[5]}}</th>
-                <th>{{item[6]}}</th>                  
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>{{item[2]}}</td>
+                <td>{{item[3]}}</td>
+                <td>{{item[4]}}</td>
+                <td>{{item[5]}}</td>
+                <td>{{item[7]}}</td>                  
               </tr>
               {% endfor %}
+              </body>
             </table>
           </div>
-          <div id="patient" class="tab-pane fade">
+          <div id="patient" {% if tabidx == "pat" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+            <strong style="color:rgb(255, 0, 0);">{{msg}}</strong>
             <form class="form-inline" action="{{url_for('patProc')}}" method="POST">
               <div class="row">
                 <div class="col-sm-12">
@@ -94,8 +100,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label" for="shift">State</label>
-                <select class="form-control" id="shift" name="state">
+                <label class="control-label" for="state">State</label>
+                <select class="form-control" id="state" name="state">
                   <option>Out</option>
                   <option>Boarded</option>
                   <option>Both</option>
@@ -118,7 +124,7 @@
                 <label class="control-label" for="depart"> Department</label>
                 <select class="form-control" id="depart" name='depart'>
                   {% for item in departList %}
-                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  <option value="{{item[0]}}">{{item[1]}}</option>                  
                   {% endfor %}
                   <option>All</option>
                 </select>
@@ -135,7 +141,8 @@
               {% endif %}            
             </table>
           </div>
-          <div id="test" class="tab-pane fade">
+          <div id="test" {% if tabidx == "test" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+            <strong style="color:rgb(255, 0, 0);">{{msg}}</strong>
             <form class="form-inline" action="{{url_for('testProc')}}" method="POST">
               <div class="row">
                 <div class="col-sm-12">
@@ -144,14 +151,14 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="dates"> Dates</label>
-                <input class="form-control" type="dates" id="dates" name="dates">
+                <input class="form-control" type="date" id="dates" name="dates">
                 </input>
               </div>
               <div class="form-group">
                 <label class="control-label" for="depart"> Department</label>
                 <select class="form-control" id="depart" name="depart">
                   {% for item in departList %}
-                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  <option value="{{item[0]}}">{{item[1]}}</option>                  
                   {% endfor %}
                   <option>All</option>
                 </select>
@@ -167,7 +174,7 @@
               <strong>0</strong>
             {% endif %}
           </div>
-          <div id="create" class="tab-pane fade">
+          <div id="create" {% if tabidx == "create" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
             <form class="form" action="{{url_for('addDoc')}}" method="POST">
               <div class="form-group">
                 <label class="control-label" for="ssn">ID (SSN)</label>
@@ -193,7 +200,7 @@
                 <label class="control-label" for"depart">Department</label>
                 <select class="form-control" id="depart" name="depart">
                   {% for item in departList %}
-                  <option value="{{item[0]}}">{{item[0]}}</option>                  
+                  <option value="{{item[0]}}">{{item[1]}}</option>                  
                   {% endfor %}
                 </select>
               </div>

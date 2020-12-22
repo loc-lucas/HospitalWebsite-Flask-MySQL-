@@ -16,10 +16,11 @@ def docProc():
     elif shift != 'Both' and depart == 'All':
         cursor.callproc('getDocICPerDate', (dates, shift))
     else:         
-        cursor.callproc('getDocICDate', (dates))
+        cursor.callproc('getDocICDate', (dates,))
 
     data = cursor.fetchall()
     session['docData'] = data
+    session['tab'] = "doc"
     return redirect(url_for('rerenderAdmin'))
 
 @app.route('/patProc', methods=['POST'])
@@ -43,6 +44,7 @@ def patProc():
 
     data = cursor.fetchall()    
     session['patData'] = data
+    session['tab'] = "pat"
     return redirect(url_for('rerenderAdmin'))    
 
 @app.route('/testProc', methods=['POST'])
@@ -53,10 +55,11 @@ def testProc():
     if depart != 'All':
         cursor.callproc('countTestDateDepart', (dates, depart))
     else:
-        cursor.callproc('countTestDate', (dates))
+        cursor.callproc('countTestDate', (dates,))
 
     data = cursor.fetchall()
     session['testData'] = data
+    session['tab'] = "test"
     return redirect(url_for('rerenderAdmin'))
 
 @app.route('/addDoc', methods=['POST'])
@@ -67,13 +70,13 @@ def addDoc():
     fname = request.form['fname']
     bdate = request.form['bdate']
     addr = request.form['addr']
-    depart = request.form['depart']
-        
+    depart = request.form['depart']  
     cursor.callproc('addDoctor', (ssn, lname, minit, fname, bdate, addr, depart))
     conn.commit()    
+    session['tab'] = "create"
     return redirect(url_for('rerenderAdmin'))
 
 @app.route('/admin/proc', methods=['GET', 'POST'])
 def rerenderAdmin():    
     return render_template('admin.html', departList=session['departList'], 
-    docData=session['docData'], patData=session['patData'], testData=session['testData'])
+    docData=session['docData'], patData=session['patData'], testData=session['testData'], tabidx=session['tab'])

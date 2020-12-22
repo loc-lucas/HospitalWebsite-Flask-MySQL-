@@ -1,3 +1,4 @@
+use HOSPITAL;
 DROP PROCEDURE IF EXISTS getDocAtSpecificDSD;
 CREATE PROCEDURE getDocAtSpecificDSD
     (IN dates Date, IN dID INT, IN periods CHAR(1))
@@ -164,7 +165,7 @@ BEGIN
     ;
 END;
 
---add doctor
+
 DROP PROCEDURE IF EXISTS addDoctor;
 CREATE PROCEDURE addDoctor
     (IN ssn INT, IN lname VARCHAR(255), IN minit VARCHAR(255), IN fname VARCHAR(255),

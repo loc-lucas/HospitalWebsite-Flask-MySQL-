@@ -17,8 +17,9 @@ def admin():
     session['docData'] = (())
     session['patData'] = (())
     session['testData'] = (())
+    session['tab']="doc"
     return render_template('admin.html', departList=session['departList'],
-    patData=session['patData'], testData=session['testData'])
+    patData=session['patData'], testData=session['testData'], tabidx=session['tab'])
 
 @app.route('/patient')
 def patient():
