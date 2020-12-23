@@ -56,8 +56,3 @@ def updateInfo():
 
     cursor.callproc('updateInfo', (pID, insurID, lname, minit, fname, bdate, addr))
     conn.commit()
-
-@app.route('/patient/proc', methods=['GET', 'POST'])
-def rerenderPatient():    
-    return render_template('patient.html', departList=session['departList'], diet=session['diet'],
-    doc=session['doc'], test=session['test'], med=session['med'])

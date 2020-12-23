@@ -57,4 +57,12 @@ def initData():
     data = cursor.fetchall()
     session['departList'] = data
 
+    cursor.execute('SELECT * FROM OUTPATIENT;')
+    data = cursor.fetchall()
+    session['outPatList'] = data
+
+    cursor.execute('SELECT * FROM OUTPATIENT;')
+    data = cursor.fetchall()
+    session['outPatList'] = data
+
     # print(session['departList'])

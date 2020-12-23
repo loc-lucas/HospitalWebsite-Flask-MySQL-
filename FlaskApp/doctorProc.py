@@ -2,16 +2,14 @@ from FlaskApp import *
 
 @app.route('/proc', methods=['POST'])
 def proc():
-    dID = session['id']
-    dates = request.form['dates']
+    dID = session['id']    
     pID = request.form['pID']
     
     med = request.form['med']
     test = request.form['test']
 
     state = request.form['state']
-    if state == 'Both':
-        cursor.callproc('getPatDate', (dates, dID))
+    if state == 'Both':        
         if pID:
             cursor.callproc('getDiagRes', (dID, pID))                 
         if test:
@@ -22,10 +20,19 @@ def proc():
             cursor.callproc('getBPatWithDecUsed', (dID, med))
         else: cursor.callproc('getPatOut', (dID))
 
+
 # @app.route('/testProc', methods=['POST'])
     # data = cursor.fetchall()
     # session['test'] = data
     # return redirect(url_for('rerenderDoctor'))
+
+@app.route('/getpat', methods=['POST'])
+def getPat():    
+    dates = request.form['dates']
+    cursor.callproc('getPatDate', (dates, session['id']))
+    patList = cursor.fetchall()
+    session['patList'] = patList
+    return redirect(url_for(rerenderDoctor))
 
 @app.route('/testProc', methods=['POST'])
 def testProc():
