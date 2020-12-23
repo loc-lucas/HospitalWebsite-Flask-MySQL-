@@ -41,7 +41,8 @@ def doctor():
         session['id'] = ''
         session['loggedIn'] = False
         return render_template('index.html', msg='This Account has no privilege to access this site! Please log in another account')
-    return render_template('doctor.html')
+    session['tab'] = "list"
+    return render_template('doctor.html', tabidx=session['tab'])
 
 
     
