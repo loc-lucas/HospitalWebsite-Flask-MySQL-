@@ -1,6 +1,6 @@
 from FlaskApp import *
 # import datetime
-@app.route('/docProc', methods=['POST'])
+@app.route('/admin/docProc', methods=['POST'])
 def docProc():            
     dates = request.form['dates'] 
     if dates == '': 
@@ -23,11 +23,11 @@ def docProc():
         cursor.callproc('getDocICDate', (dates,))
 
     data = cursor.fetchall()
-    session['docData'] = data
+    session['docData'] = data if data else [[]]
     session['tab'] = "doc"
     return redirect(url_for('rerenderAdmin'))
 
-@app.route('/patProc', methods=['POST'])
+@app.route('/admin/patProc', methods=['POST'])
 def patProc():            
     state = request.form['state']          
     shift = request.form['shift']
@@ -47,11 +47,11 @@ def patProc():
         cursor.callproc('countBPatPerDate', (dates, shift))            
 
     data = cursor.fetchall()    
-    session['patData'] = data
+    session['patData'] = data if data else [[]]
     session['tab'] = "pat"
     return redirect(url_for('rerenderAdmin'))    
 
-@app.route('/testProc', methods=['POST'])
+@app.route('/admin/testProc', methods=['POST'])
 def testProc():            
     dates = request.form['dates'] 
     depart = request.form['depart']            
@@ -62,11 +62,11 @@ def testProc():
         cursor.callproc('countTestDate', (dates,))
 
     data = cursor.fetchall()
-    session['testData'] = data
+    session['testData'] = data if data else [[]]
     session['tab'] = "test"
     return redirect(url_for('rerenderAdmin'))
 
-@app.route('/addDoc', methods=['POST'])
+@app.route('/admin/addDoc', methods=['POST'])
 def addDoc():            
     ssn = request.form['ssn']
     lname = request.form['lname']

@@ -42,7 +42,7 @@
             </ul>
             <div class="tab-content">
               <div id="day" {% if tabidx == "day" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>                
-                <form class="form-inline" action="" method="POST">
+                <form class="form-inline" action="{{url_for('getPat')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
                       <h6></h6>
@@ -63,28 +63,30 @@
                 <table class="table table-hover">       
                   <head>
                   <tr style="background-color: cornflowerblue;">         
-                    <th>Dates</th>
-                    <th>Amount</th>
-                    <th>Usage Description</th>
-                    <th>Name</th>
-                    <th>Prescription ID</th>                    
+                    <th>SSN</th>
+                    <th>Last Name</th>
+                    <th>Minit</th>
+                    <th>First Name</th>
+                    <th>Birth Date</th>     
+                    <th>Address</th>                     
                   </tr>       
                   </head>
                   <body>
-                  {% for item in patientList %}
+                  {% for item in patList %}
                   <tr>         
                     <td>{{item[0]}}</td>
                     <td>{{item[1]}}</td>
                     <td>{{item[2]}}</td>
                     <td>{{item[3]}}</td>
                     <td>{{item[4]}}</td>                 
+                    <td>{{item[5]}}</td>        
                   </tr>
                   {% endfor %}
                   </body>
                 </table>
               </div>
               <div id="disease" {% if tabidx == "disease" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
-                <form class="form-inline" action="" method="POST">
+                <form class="form-inline" action="{{url_for('disProc')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
                       <h6></h6>
@@ -110,24 +112,28 @@
                 <table class="table table-hover">       
                   <head>
                   <tr style="background-color: cornflowerblue;">         
-                    <th>Name</th>
-                    <th>Result</th>
-                    <th>Note</th>                  
+                    <th>SSN</th>
+                    <th>Last Name</th>
+                    <th>Minit</th>
+                    <th>First Name</th>
+                    <th>Birth Date</th>     
+                    <th>Address</th>                     
                   </tr>       
                   </head>
                   <body>
-                  {% for item in testList %}
+                  {% for item in patDis %}
                   <tr>         
-                    <td>{{item[2]}}</td>
+                    <td>{{item[0]}}</td>
                     <td>{{item[1]}}</td>
-                    <td>{{item[3]}}</td>               
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>                 
+                    <td>{{item[5]}}</td>        
                   </tr>
                   {% endfor %}
-                  </body>
-                </table>
               </div>
               <div id="abnormal" {% if tabidx == "abnormal" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
-                <form class="form-inline" action="" method="POST">
+                <form class="form-inline" action="{{url_for('disAbProc')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
                       <h6></h6>
@@ -153,15 +159,23 @@
                 <table class="table table-hover">       
                   <head>
                   <tr style="background-color: cornflowerblue;">         
-                    <th>Name</th>
-                    <th>Result</th>                                  
+                    <th>SSN</th>
+                    <th>Last Name</th>
+                    <th>Minit</th>
+                    <th>First Name</th>
+                    <th>Birth Date</th>     
+                    <th>Address</th>                     
                   </tr>       
                   </head>
                   <body>
-                  {% for item in ftestList %}
+                  {% for item in patAbDis %}
                   <tr>         
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
                     <td>{{item[2]}}</td>
-                    <td>{{item[1]}}</td>                              
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>                 
+                    <td>{{item[5]}}</td>        
                   </tr>
                   {% endfor %}
                   </body>
@@ -171,24 +185,30 @@
                 <table class="table table-hover">       
                   <head>
                   <tr style="background-color: cornflowerblue;">         
-                    <th>Name</th>
-                    <th>Result</th>
-                    <th>Note</th>                  
+                    <th>SSN</th>
+                    <th>Last Name</th>
+                    <th>Minit</th>
+                    <th>First Name</th>
+                    <th>Birth Date</th>     
+                    <th>Address</th>                     
                   </tr>       
                   </head>
                   <body>
-                  {% for item in abList %}
+                  {% for item in patDis %}
                   <tr>         
-                    <td>{{item[2]}}</td>
+                    <td>{{item[0]}}</td>
                     <td>{{item[1]}}</td>
-                    <td>{{item[3]}}</td>               
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>                 
+                    <td>{{item[5]}}</td>        
                   </tr>
                   {% endfor %}
                   </body>
                 </table>
               </div>
               <div id="less" {% if tabidx == "less" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
-                <form class="form-inline" action="" method="POST">
+                <form class="form-inline" action="{{url_for('getBPatWithDecUsed')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
                       <h6></h6>
@@ -223,7 +243,7 @@
                   </tr>       
                   </head>
                   <body>
-                  {% for item in docList %}
+                  {% for item in lessMed %}
                   <tr>         
                     <td>{{item[0]}}</td>
                     <td>{{item[1]}}</td>
@@ -237,7 +257,7 @@
                 </table>
               </div>
               <div id="recover" {% if tabidx == "recover" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
-                <form class="form-inline" action="" method="POST">
+                <form class="form-inline" action="{{url_for('getPatWithNorAbnorRes')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
                       <h6></h6>
@@ -263,13 +283,23 @@
                 <table class="table table-hover">       
                   <head>
                   <tr style="background-color: cornflowerblue;">         
-                    <th>Description</th>              
+                    <th>SSN</th>
+                    <th>Last Name</th>
+                    <th>Minit</th>
+                    <th>First Name</th>
+                    <th>Birth Date</th>     
+                    <th>Address</th>                 
                   </tr>       
                   </head>
                   <body>
-                  {% for item in dietList %}
+                  {% for item in norAb %}
                   <tr>         
                     <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>                 
+                    <td>{{item[5]}}</td> 
                   </tr>
                   {% endfor %}
                   </body>

@@ -1,65 +1,91 @@
 from FlaskApp import *
 
-@app.route('/proc', methods=['POST'])
-def proc():
-    dID = session['id']    
-    pID = request.form['pID']
-    
-    med = request.form['med']
+
+@app.route('/doctor/getPatWithNorAbnorRes', methods=['POST'])
+def getPatWithNorAbnorRes():
     test = request.form['test']
+    cursor.callproc('getPatWithNorAbnorRes', (session['id'], test))
+    data = cursor.fetchall()
+    session['norAb'] = data if data else [[]]
+    return redirect(url_for('rerenderDoctor'))
 
-    state = request.form['state']
-    if state == 'Both':        
-        if pID:
-            cursor.callproc('getDiagRes', (dID, pID))                 
-        if test:
-            cursor.callproc('getPatWithNorAbnorRes', (test, dID))            
-    elif state == 'Boarded':
-        cursor.callproc('getUsedMedOfBP', (dID, pID))
-        if med:
-            cursor.callproc('getBPatWithDecUsed', (dID, med))
-        else: cursor.callproc('getPatOut', (dID))
+@app.route('/doctor/getBPatWithDecUsed', methods=['POST'])
+def getBPatWithDecUsed():
+    med = request.form['medicine']
+    cursor.callproc('getBPatWithDecUsed', (session['id'], med))
+    data = cursor.fetchall()
+    session['lessMed'] = data if data else [[]]
+    return redirect(url_for('rerenderDoctor'))
 
-
-# @app.route('/testProc', methods=['POST'])
-    # data = cursor.fetchall()
-    # session['test'] = data
-    # return redirect(url_for('rerenderDoctor'))
-
-@app.route('/getpat', methods=['POST'])
+@app.route('/doctor/getPatOut', methods=['POST'])
+def getPatOut():    
+    cursor.callproc('getPatOut', (session['id'], ))
+    data = cursor.fetchall()
+    session['patOut'] = data if data else [[]]    
+    
+@app.route('/doctor/getpatdate', methods=['POST'])
 def getPat():    
+    # print(session['id'])
     dates = request.form['dates']
     cursor.callproc('getPatDate', (dates, session['id']))
-    patList = cursor.fetchall()
-    session['patList'] = patList
-    return redirect(url_for(rerenderDoctor))
-
-@app.route('/testProc', methods=['POST'])
-def testProc():
-    dID = session['id']
-    pID = request.form['pID']
-    ttype = request.form['ttype']
-
-    if ttype == 'Film': cursor.callproc('getFTestOfBPat', (dID, pID))
-    else :cursor.callproc('getTestOfBPat', (dID, pID))
-    
     data = cursor.fetchall()
-    session['test'] = data
+    session['patList'] = data if data else [[]]
+    # print(data)
+    # print(session['patList']
     return redirect(url_for('rerenderDoctor'))
 
-@app.route('/disProc', methods=['POST'])
+@app.route('/doctor/disProc', methods=['POST'])
 def disProc():
     dID = session['id']
-    disease = request.form['desease']
-    res = request.form['res']
+    disease = request.form['desease']    
 
-    if res == 'Abnormal': cursor.callproc('getPatOfDiseaseAbnormal', (dID, disease))
-    else: cursor.callproc('getPatOfDisease', (dID, disease))
-    
+    cursor.callproc('getPatOfDisease', (dID, disease))
     data = cursor.fetchall()
-    session['pat'] = data
+    session['patDis'] = data if data else [[]]
     return redirect(url_for('rerenderDoctor'))
+
+
+@app.route('/doctor/abdisProc', methods=['POST'])
+def disAbProc():
+    dID = session['id']
+    disease = request.form['disease']    
+
+    cursor.callproc('getPatOfDiseaseAbnormal', (dID, disease))
+    data = cursor.fetchall()
+    session['patAbDis'] = data if data else [[]]
+    return redirect(url_for('rerenderDoctor'))    
 
 @app.route('/doctor/proc', methods=['GET', 'POST'])
 def rerenderDoctor():    
-    return render_template('doctor.html', departList=session['departList'])
+    return render_template('doctor.html', departList=session['departList'], patList=session['patList'],
+    patAbDis=session['patAbDis'], patDis=session['patDis'], patOut=session['patOut'], medList=session['medList'],
+    lessMed=session['lessMed'], testList=session['testList'])
+
+
+# @app.route('/doctor/testProc', methods=[['Post']])
+# def docTestProc():
+#     dID = session['id']
+#     pID = request.form['pID']
+#     ttype = request.form['ttype']
+
+#     if ttype == 'Film': cursor.callproc('getFTestOfBPat', (dID, pID))
+#     else :cursor.callproc('getTestOfBPat', (dID, pID))
+    
+#     data = cursor.fetchall()
+#     session['test'] = data
+#     return redirect(url_for('rerenderDoctor'))    
+
+# @app.route('/proc', methods=[['Post']])
+# def proc():
+#     dID = session['id']    
+#     pID = request.form['pID']
+    
+#     med = request.form['med']
+#     test = request.form['test']
+
+#     state = request.form['state']
+#     if state == 'Both':        
+#         if pID:
+#             cursor.callproc('getDiagRes', (dID, pID))                           
+#     elif state == 'Boarded':
+#         cursor.callproc('getUsedMedOfBP', (dID, pID))

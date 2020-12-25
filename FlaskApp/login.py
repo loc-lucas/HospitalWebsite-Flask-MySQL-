@@ -61,8 +61,13 @@ def initData():
     data = cursor.fetchall()
     session['outPatList'] = data
 
-    cursor.execute('SELECT * FROM OUTPATIENT;')
+    cursor.execute('SELECT * FROM TESTLIST;')
     data = cursor.fetchall()
-    session['outPatList'] = data
+    session['diseaseList'] = data
+
+    cursor.execute('SELECT * FROM MEDICINELIST;')
+    data = cursor.fetchall()
+    session['medList'] = data
+
 
     # print(session['departList'])
