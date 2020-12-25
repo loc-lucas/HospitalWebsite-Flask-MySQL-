@@ -43,8 +43,9 @@ def doctor():
         return render_template('index.html', msg='This Account has no privilege to access this site! Please log in another account')
 
     
-    testList = session['testList']
-    return render_template('doctor.html', testlist=testlist)
+    # testList = session['testList']
+    session['tab'] = "list"
+    return render_template('doctor.html', tabidx=session['tab'])
 
 
     
