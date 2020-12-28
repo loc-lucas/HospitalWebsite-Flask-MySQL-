@@ -1,5 +1,5 @@
 use HOSPITAL;
-create table BoardedRecord(
+create table BOARDEDRECORD(
     PatientID CHAR(9) NOT NULL,
     BoardedTime Date NOT NULL,
     BoardedDis VARCHAR(256) NOT NULL,

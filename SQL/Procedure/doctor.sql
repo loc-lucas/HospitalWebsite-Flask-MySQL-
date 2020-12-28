@@ -166,3 +166,69 @@ BEGIN
     JOIN TakeTest as TT2 ON E2.ID = TT2.ExamID AND TT2.TestID = T2.ID
     ;
 END;
+
+-- add new examination
+DROP PROCEDURE IF EXISTS addExam;
+CREATE PROCEDURE addExam
+    (IN pID CHAR(9), IN nID CHAR(9), IN dID CHAR(9), IN shiftID CHAR(11), IN diagRes VARCHAR(256))
+BEGIN 
+    INSERT  EXAMINATION (PatientID, NurseID, DocID, ShiftID, DiagRes)
+    VALUES 
+        (pID, nID, dID, shiftID, diagRes)
+    ;
+END;
+
+-- add new test
+DROP PROCEDURE IF EXISTS addTest;
+CREATE PROCEDURE addTest
+    (IN id INTEGER, IN result FLOAT, IN tName VARCHAR(30), IN note VARCHAR(30))
+BEGIN 
+    INSERT Test (ID, Result, TName, Note)
+    VALUES 
+        (id, result, tName, note)
+    ;
+END;
+
+-- add new film test
+DROP PROCEDURE IF EXISTS addFTest;
+CREATE PROCEDURE addFTest
+    (IN id INTEGER, IN result FLOAT, IN tName VARCHAR(30))
+BEGIN 
+    INSERT  FTEST (ID, Result, TName)
+    VALUES 
+        (id, result, tName)
+    ;
+END;
+
+-- add new prescription
+DROP PROCEDURE IF EXISTS addPres;
+CREATE PROCEDURE addPres
+    (IN eID INTEGER, IN dID CHAR(9), IN diet VARCHAR(256))
+BEGIN 
+    INSERT  PRESCRIPTION (ExamID, DocID, Diet)
+    VALUES 
+        (eID, dID, diet)
+    ;
+END;
+
+-- add new medicine
+DROP PROCEDURE IF EXISTS addMed;
+CREATE PROCEDURE addMed
+    (IN dates DATE , IN amount INTEGER, IN usageDes VARCHAR(50), IN mName VARCHAR(15), IN presID INTEGER)
+BEGIN 
+    INSERT  MEDICINE (Dates, Amount, UsageDes, PresID)
+    VALUES 
+        (dates, amount, usageDes, mName, presID)
+    ;
+END;
+
+-- add new take test
+DROP PROCEDURE IF EXISTS addTakeTest;
+CREATE PROCEDURE addTakeTest
+    (IN examID INTEGER , IN testID INTEGER, IN fTestID INTEGER)
+BEGIN 
+    INSERT  TakeTest (ExamID, TestID, FTestID)
+    VALUES 
+        (examID, testID, fTestID)
+    ;
+END;

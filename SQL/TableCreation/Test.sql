@@ -7,3 +7,5 @@ create table TEST(
     PRIMARY KEY(ID),
     FOREIGN KEY (TName) REFERENCES TESTLIST(TName)
 );
+
+taketest
