@@ -84,7 +84,7 @@
                   </head>
 
                   <body>
-                    {% for item in patList %}
+                    {% for item in patientList %}
                     <tr>
                       <td>{{item[0]}}</td>
                       <td>{{item[1]}}</td>
@@ -351,7 +351,12 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="pat"> Patient ID</label>
-                <input class="form-control" type="text" id="pat" name="patID">
+                <input class="form-control" type="text" id="pat" name="patID" list="patList">
+                <datalist id="patList">
+                  {% for item in patList %}
+                  <option>{{item[0]}}</option>
+                  {% endfor %}
+                </datalist>
                 </input>
               </div>
               <button type="submit" class="btn btn-info">Search</button>
@@ -459,9 +464,8 @@
               </div>
             </div>
           </div>
-          <div id="updatePat" {% if tabidx=="updatePat" %} class="tab-pane fade in active" {% else %}
-            class="tab-pane fade" {% endif %}>
-            <form class="form" action="{{url_for('getPatDetail')}}" method="POST">
+          <div id="update" {% if tabidx=="update" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+            <form class="form" action="{{url_for('updateActivity')}}" method="POST">
               <div class="row">
                 <div class="form-group">
                   <label class="control-label" for="shift"> Shift</label>
@@ -477,15 +481,23 @@
               </div>
               <div class="form-group">
                 <label class="control-label" for="patID"> Patient ID</label>
-                <input class="form-control" type="text" id="patID" name="patID"></input>
+                <input class="form-control" type="text" id="patID" name="patID" list="patList">
+                <datalist id="patList">
+                  {% for item in patList %}
+                  <option>{{item[0]}}</option>
+                  {% endfor %}
+                </datalist>
+                </input>
               </div>
               <div class="form-group">
                 <label class="control-label" for="nurse"> Nurse ID</label>
-                <select class="form-control" id="nurse" name="nurseID">
-                  {% for item in nurseList %}
-                  <option>{{item[0]}}</option>
-                  {% endfor %}
-                </select>
+                <input class="form-control" id="nurse" name="nurseID" list="nurseList">
+                  <datalist id="nurseList">
+                    {% for item in nurseList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </datalist>
+                </input>
               </div>
               <h3><b>Test</b></h3>
               <div class="row">
@@ -509,7 +521,7 @@
                   </select>
                 </div>
               </div>
-
+              <h5></h5>
               <div class="row">
                 <div class="form-group">
                   <label class="control-label" for="tname2"> Test Name</label>
@@ -531,7 +543,7 @@
                   </select>
                 </div>
               </div>
-
+              <h5></h5>
               <div class="row">
                 <div class="form-group">
                   <label class="control-label" for="tname3"> Test Name</label>
@@ -557,46 +569,46 @@
               <h3><b>Film Test</b></h3>
               <div class="row">
                 <div class="form-group">
-                  <label class="control-label" for="tname1"> Film Test Name</label>
-                  <select class="form-control" id="tname1" name="tname1">
+                  <label class="control-label" for="ftname1"> Film Test Name</label>
+                  <select class="form-control" id="ftname1" name="ftname1">
                     {% for item in filmList %}
                     <option>{{item[0]}}</option>
                     {% endfor %}
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="control-label" for="resTest1"> Result</label>
-                  <input class="form-control" type="text" id="resTest1" name="resTest1"></input>
+                  <label class="control-label" for="resFTest1"> Result</label>
+                  <input class="form-control" type="text" id="resFTest1" name="resFTest1"></input>
                 </div>
               </div>
-
+              <h5></h5>
               <div class="row">
                 <div class="form-group">
-                  <label class="control-label" for="tname2"> Film Test Name</label>
-                  <select class="form-control" id="tname2" name="tname2">
+                  <label class="control-label" for="ftname2"> Film Test Name</label>
+                  <select class="form-control" id="ftname2" name="ftname2">
                     {% for item in filmList %}
                     <option>{{item[0]}}</option>
                     {% endfor %}
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="control-label" for="resTest2"> Result</label>
-                  <input class="form-control" type="text" id="resTest2" name="resTest2"></input>
+                  <label class="control-label" for="resFTest2"> Result</label>
+                  <input class="form-control" type="text" id="resFTest2" name="resFTest2"></input>
                 </div>
               </div>
-
+              <h5></h5>
               <div class="row">
                 <div class="form-group">
-                  <label class="control-label" for="tname3"> Film Test Name</label>
-                  <select class="form-control" id="tname3" name="tname3">
+                  <label class="control-label" for="ftname3"> Film Test Name</label>
+                  <select class="form-control" id="ftname3" name="ftname3">
                     {% for item in filmList %}
                     <option>{{item[0]}}</option>
                     {% endfor %}
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="control-label" for="resTest3"> Result</label>
-                  <input class="form-control" type="text" id="resTest3" name="resTest3"></input>
+                  <label class="control-label" for="resFTest3"> Result</label>
+                  <input class="form-control" type="text" id="resFTest3" name="resFTest3"></input>
                 </div>
               </div>
 
@@ -619,7 +631,7 @@
                   <input class="form-control" type='text' id="usageDes1" name="usageDes1"></input>
                 </div>
               </div>
-
+              <h5></h5>
               <div class="row">
                 <div class="form-group">
                   <label class="control-label" for="mname2"> Medicine Name </label>
@@ -638,7 +650,7 @@
                   <input class="form-control" type='text' id="usageDes2" name="usageDes2"></input>
                 </div>
               </div>
-
+              <h5></h5>
               <div class="row">
                 <div class="form-group">
                   <label class="control-label" for="mname3"> Medicine Name </label>
@@ -657,15 +669,15 @@
                   <input class="form-control" type='text' id="usageDes3" name="usageDes3"></input>
                 </div>
               </div>
-              
+              <h4></h4>
               <div class="form-group">
                 <label class="control-label" for="diet"> Diet</label>
                 <input class="form-control" type='text' id="diet" name="diet"></input>
               </div>
-
+              <h3></h3>
               <div class="form-group">
-                <label class="control-label" for="diaResult"> Diagnosis</label>
-                <input class="form-control" type='text' id="diaResult" name="diaResult"></input>
+                <label class="control-label" for="diagRes"> Diagnosis</label>
+                <input class="form-control" type='text' id="diagRes" name="diagRes"></input>
               </div>
               <div class="row">
                 <div class="col-sm-12">
@@ -673,7 +685,6 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-info">Submit</button>
-              
             </form>
           </div>
         </div>

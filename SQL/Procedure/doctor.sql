@@ -1,18 +1,4 @@
-DROP PROCEDURE IF EXISTS updateOPat;
-CREATE PROCEDURE updateOPat
-    (IN pID INT)
-BEGIN 
-    UPDATE OUTPATIENT
-END;
-
-DROP PROCEDURE IF EXISTS updateBPat;
-CREATE PROCEDURE updateBPat
-    (IN pID INT)
-BEGIN 
-    UPDATE BOARDEDPATIENT
-END;
-
---3
+--3: Get list of patient they in charge in 1 date
 DROP PROCEDURE IF EXISTS getPatDate;
 CREATE PROCEDURE getPatDate
     (IN dates DATE, IN docID INT)
@@ -26,9 +12,8 @@ BEGIN
         AND E.DocID = D.ID
     ;
 END;
--- CALL getPatDate('2020-11-23', 356474245);
 
---4
+--4: Get diagnosis of 1 patient
 DROP PROCEDURE IF EXISTS getDiagRes;
 CREATE PROCEDURE getDiagRes 
     (IN docID INT, IN pID INT)
@@ -40,9 +25,8 @@ BEGIN
         AND E.PatientID = pID
     ;
 END;   
--- CALL getDiagRes(356474245, 321456789);
 
---5
+--5: Get all medicine the boarded patient they in charged has used
 DROP PROCEDURE IF EXISTS getUsedMedOfBP;
 CREATE PROCEDURE getUsedMedOfBP
     (IN docID INT, IN pID INT)
@@ -58,7 +42,6 @@ BEGIN
     JOIN BOARDEDPATIENT as B ON E.PatientID = B.ID
     ;
 END;
--- CALL getUsedMedOfBP(356474245,830185245);
 
 --6
 use HOSPITAL;
@@ -93,8 +76,8 @@ BEGIN
     JOIN BOARDEDPATIENT as B ON B.ID = E.PatientID
     ;
 END; 
--- CALL getFTestOfBPat(345615634, 123456789);
---8 
+
+--8: Get list of patient of 1 diagnosed diseases they diagnose
 DROP PROCEDURE IF EXISTS getPatOfDisease;
 CREATE PROCEDURE getPatOfDisease
     (IN docID INT, IN disease VARCHAR(255))
@@ -109,7 +92,7 @@ BEGIN
 END; 
 -- CALL getPatOfDisease(812749801,'Crazy in love');
 
---9
+--9: Get list of patient of 1 diagnosed diseases they diagnose with abnormal note
 DROP PROCEDURE IF EXISTS getPatOfDiseaseAbnormal;
 CREATE PROCEDURE getPatOfDiseaseAbnormal
     (IN docID INT, IN disease VARCHAR(255))
@@ -125,8 +108,8 @@ BEGIN
         AND E.ID = TT.ExamID
     ;
 END;
--- CALL getPatOfDiseaseAbnormal(345615634,'Broken Leg');
---10
+
+--10: Get list of patient that get out of boarded state that they in charge
 DROP PROCEDURE IF EXISTS getPatOut;
 CREATE PROCEDURE getPatOut
     (IN docID INT)
@@ -140,8 +123,8 @@ BEGIN
     WHERE D.ID = docID
     ;
 END; 
--- CALL getPatOut(356474245);
---11
+
+--11: Get list of boarded patient that have decreasing amount of a specific medicine in 3 consecutive used time
 DROP PROCEDURE IF EXISTS getBPatWithDecUsed;
 CREATE PROCEDURE getBPatWithDecUsed
     (IN docID INT, IN medName VARCHAR(255))
@@ -159,9 +142,8 @@ BEGIN
         AND M1.Amount > M2.Amount AND M2.Amount > M3.Amount
     ;            
 END;    
--- CALL getBPatWithDecUsed(345615634,'Alkeprotin');
 
---12
+--12: Get list of patient with normal res in 1 test that has abnormal result in the previous same test
 DROP PROCEDURE IF EXISTS getPatWithNorAbnorRes;
 CREATE PROCEDURE getPatWithNorAbnorRes
     (IN testName VARCHAR(255), IN docID INT)
@@ -186,4 +168,69 @@ BEGIN
     JOIN TakeTest as TT2 ON E2.ID = TT2.ExamID AND TT2.TestID = T2.ID
     ;
 END;
--- CALL getPatWithNorAbnorRes();
+use hospital;
+-- add new examination
+DROP PROCEDURE IF EXISTS addExam;
+CREATE PROCEDURE addExam
+    (IN pID CHAR(9), IN nID CHAR(9), IN dID CHAR(9), IN shiftID CHAR(11), IN diagRes VARCHAR(256))
+BEGIN 
+    INSERT  EXAMINATION (PatientID, NurseID, DocID, ShiftID, DiagRes)
+    VALUES 
+        (pID, nID, dID, shiftID, diagRes)
+    ;
+END;
+
+-- add new test
+DROP PROCEDURE IF EXISTS addTest;
+CREATE PROCEDURE addTest
+    (IN id INTEGER, IN result FLOAT, IN tName VARCHAR(30), IN note VARCHAR(30))
+BEGIN 
+    INSERT Test (ID, Result, TName, Note)
+    VALUES 
+        (id, result, tName, note)
+    ;
+END;
+
+-- add new film test
+DROP PROCEDURE IF EXISTS addFTest;
+CREATE PROCEDURE addFTest
+    (IN id INTEGER, IN result FLOAT, IN tName VARCHAR(30))
+BEGIN 
+    INSERT  FTEST (ID, Result, TName)
+    VALUES 
+        (id, result, tName)
+    ;
+END;
+
+-- add new prescription
+DROP PROCEDURE IF EXISTS addPres;
+CREATE PROCEDURE addPres
+    (IN eID INTEGER, IN dID CHAR(9), IN diet VARCHAR(256))
+BEGIN 
+    INSERT  PRESCRIPTION (ExamID, DocID, Diet)
+    VALUES 
+        (eID, dID, diet)
+    ;
+END;
+
+-- add new medicine
+DROP PROCEDURE IF EXISTS addMed;
+CREATE PROCEDURE addMed
+    (IN dates DATE , IN amount INTEGER, IN usageDes VARCHAR(50), IN mName VARCHAR(15), IN presID INTEGER)
+BEGIN 
+    INSERT  MEDICINE (Dates, Amount, UsageDes, PresID)
+    VALUES 
+        (dates, amount, usageDes, mName, presID)
+    ;
+END;
+
+-- add new take test
+DROP PROCEDURE IF EXISTS addTakeTest;
+CREATE PROCEDURE addTakeTest
+    (IN examID INTEGER , IN testID INTEGER, IN fTestID INTEGER)
+BEGIN 
+    INSERT  TakeTest (ExamID, TestID, FTestID)
+    VALUES 
+        (examID, testID, fTestID)
+    ;
+END;

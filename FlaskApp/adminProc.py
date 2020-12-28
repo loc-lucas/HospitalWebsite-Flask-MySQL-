@@ -43,8 +43,10 @@ def patProc():
         cursor.callproc('countBPatPerDateDepart', (dates, depart, shift))
     elif state == 'Out' and shift != 'Both' and depart != 'All':
         cursor.callproc('countOPatPerDateDepart', (dates, depart, shift))   
+    elif state == 'Out' and shift != 'Both' and depart == 'All':
+        cursor.callproc('countOPatPerDate', (dates, shift))   
     elif state == 'Both' and shift != 'Both' and depart == 'All':
-        cursor.callproc('countBPatPerDate', (dates, shift))            
+        cursor.callproc('countBPatPerDate', (dates, shift))                
 
     data = cursor.fetchall()    
     session['patData'] = data if data else [[]]

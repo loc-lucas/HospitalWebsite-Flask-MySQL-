@@ -1,5 +1,4 @@
 use HOSPITAL;
-drop table patient;
 CREATE TABLE PATIENT(
     ID  CHAR(9) NOT NULL,
     InsurID CHAR(9),

@@ -35,6 +35,7 @@ def initData():
     cursor.execute('SELECT * FROM NURSE;')
     data = cursor.fetchall()
     session['nurseList'] = data
+    print(data)
 
     # fetch doctor data
     cursor.execute('SELECT * FROM DOCTOR;')
@@ -52,7 +53,7 @@ def initData():
     session['testList'] = data
 
     # fetch film test data
-    cursor.execute('SELECT * FROM PATIENT;')
+    cursor.execute('SELECT * FROM FTESTLIST;')
     data = cursor.fetchall()
     session['filmList'] = data
 

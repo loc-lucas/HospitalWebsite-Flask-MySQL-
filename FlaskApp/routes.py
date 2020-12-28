@@ -49,13 +49,14 @@ def doctor():
     session['patDis'] = (())
     session['patOut'] = (())
     session['lessMed'] = (())
-    session['tab'] = "updatePat"
+    session['tab'] = "list"
     session['tab2'] = "day"
     session['PatientID'] = ""
     session['FTest'] = (())
     session['Test'] = (())
     session['Medicine'] = (())
     session['Diagnosis'] = (())
-    session['nurseList'] = (())
-    return render_template('doctor.html',nurseList=session['nurseList'], tabidx=session['tab'], tabidx2=session['tab2'], diseaseList=session['diseaseList'], 
-    patOut=session['patOut'], film=(()), test=(()), medicine=(()), diagnosis=(()), testList=session['testList'], medList=session['medList'], filmList=session['filmList'])
+    session['patientList'] =(())
+    return render_template('doctor.html', nurseList=session['nurseList'], tabidx="list", tabidx2=session['tab2'], diseaseList=session['diseaseList'], 
+    patOut=session['patOut'], film=(()), test=(()), medicine=(()), diagnosis=(()), 
+    testList=session['testList'], medList=session['medList'], filmList=session['filmList'], patList=session['patList'])

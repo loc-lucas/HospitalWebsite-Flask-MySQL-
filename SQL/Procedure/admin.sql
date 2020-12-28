@@ -1,4 +1,4 @@
-use HOSPITAL;
+-- 1: Get list of doctors in charge of 1 period at 1 date in 1 department
 DROP PROCEDURE IF EXISTS getDocAtSpecificDSD;
 CREATE PROCEDURE getDocAtSpecificDSD
     (IN dates Date, IN dID INT, IN periods CHAR(1))
@@ -15,8 +15,8 @@ BEGIN
     JOIN DEPARTMENT as DP ON DP.ID = D.DepartID
     ;
 END;
--- CALL getDocAtSpecificDSD('2020-11-23', 1, 'A');
 
+-- 2: Get list of doctors in charge at 1 day in 1 department
 DROP PROCEDURE IF EXISTS getDocICDateDepart;
 CREATE PROCEDURE getDocICDateDepart
     (IN dates DATE, IN departID INT)
@@ -30,8 +30,8 @@ BEGIN
     JOIN DEPARTMENT as DP ON DP.ID = D.DepartID        
     ;
 END;
--- CALL getDocICDateDepart('2020-11-23',1);
 
+-- 3: Get list of doctors in charge of 1 period at 1 date of all departments
 DROP PROCEDURE IF EXISTS getDocICPerDate;
 CREATE PROCEDURE getDocICPerDate
     (IN dates DATE, IN peri CHAR(1))
@@ -44,8 +44,7 @@ BEGIN
     ;
 END;
 
--- CALL getDocICPerDate('2020-11-23','A');
-
+-- 4: Get list of doctors in charge at 1 day in ALL departments
 DROP PROCEDURE IF EXISTS getDocICDate;
 CREATE PROCEDURE getDocICDate
     (IN dates DATE)
@@ -58,8 +57,7 @@ BEGIN
     ;
 END;
 
--- CALL getDocICDate('2020-11-23');
-
+-- 5: Count all patients in 1 period at 1 date in 1 department
 DROP PROCEDURE IF EXISTS countPatPerDateDepart;
 CREATE PROCEDURE countPatPerDateDepart
     (IN dates DATE, IN departID INT, IN peri CHAR(1))
@@ -73,8 +71,8 @@ BEGIN
         AND E.PatientID = P.ID
     ;
 END;
--- CALL countPatPerDateDepart('2020-11-23',1,'A');
 
+-- 6: Count all boarded patient in 1 period at 1 date in 1 department
 DROP PROCEDURE IF EXISTS countBPatPerDateDepart;
 CREATE PROCEDURE countBPatPerDateDepart
     (IN dates DATE, IN departID INT, IN peri CHAR(1))
@@ -91,12 +89,12 @@ BEGIN
     WHERE P.Sts = 'Boarded'
     ;
 END;
--- CALL countBPatPerDateDepart('2020-11-23',1,'A');
 
+-- 7: Count all out patient in 1 period at 1 date in 1 department
 DROP PROCEDURE IF EXISTS countOPatPerDateDepart;
 CREATE PROCEDURE countOPatPerDateDepart
     (IN dates DATE, IN departID INT, IN peri CHAR(1))
-BEGIN 
+BEGIN -- 5: Count all patients in 1 period at 1 date in 1 department
     SELECT Count(*)
     FROM PATIENT as P
     JOIN SHIFT as S ON S.Periods = peri
@@ -107,8 +105,8 @@ BEGIN
     JOIN OUTPATIENT as O ON O.ID = P.ID
     ;
 END; 
--- CALL countOPatPerDateDepart('2020-11-23',1,'A');
 
+-- 9: Count all boarded patient in 1 period at 1 date in all departments
 DROP PROCEDURE IF EXISTS countBPatPerDate;
 CREATE PROCEDURE countBPatPerDate
     (IN dates DATE, IN peri CHAR(1))
@@ -122,8 +120,22 @@ BEGIN
     JOIN OUTPATIENT as O ON O.ID = P.ID
     ;
 END;
--- CALL countBPatPerDate('2020-11-23', 'A');
 
+-- 10: Count all out patient in 1 period at 1 date in all departments
+CREATE PROCEDURE countOPatPerDate
+    (IN dates DATE, IN peri CHAR(1))
+BEGIN 
+    SELECT Count(*)
+    FROM patient as P
+    JOIN shift as S ON S.Periods = peri
+        AND S.Dates = dates
+    JOIN examination as E ON S.ID = E.ShiftID
+        AND E.PatientID = P.ID
+    JOIN outpatient as O ON O.ID = P.ID
+    ;
+END; 
+
+-- 11: Count all test taken in 1 date in 1 department
 DROP PROCEDURE IF EXISTS countTestDateDepart;
 CREATE PROCEDURE countTestDateDepart
     (IN dates DATE, IN departID INT)
@@ -146,8 +158,8 @@ BEGIN
     As TotalTest
     ;
 END;
--- CALL countTestDateDepart('2020-11-23',1);
 
+-- 12: Count all test taken in 1 date in all departments
 DROP PROCEDURE IF EXISTS countTestDate;
 CREATE PROCEDURE countTestDate
     (IN dates DATE)
@@ -169,7 +181,7 @@ BEGIN
     ;
 END;
 
-
+-- add new doctor
 DROP PROCEDURE IF EXISTS addDoctor;
 CREATE PROCEDURE addDoctor
     (IN ssn INT, IN lname VARCHAR(255), IN minit VARCHAR(255), IN fname VARCHAR(255),
