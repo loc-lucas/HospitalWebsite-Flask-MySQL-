@@ -32,6 +32,10 @@ def initData():
     data = cursor.fetchall()
     session['usrList'] = data
 
+    cursor.execute('SELECT * FROM NURSE;')
+    data = cursor.fetchall()
+    session['nurseList'] = data
+
     # fetch doctor data
     cursor.execute('SELECT * FROM DOCTOR;')
     data = cursor.fetchall()

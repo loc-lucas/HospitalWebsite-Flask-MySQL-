@@ -61,11 +61,12 @@ END;
 -- CALL getUsedMedOfBP(356474245,830185245);
 
 --6
+use HOSPITAL;
 DROP PROCEDURE IF EXISTS getTestOfBPat;
 CREATE PROCEDURE getTestOfBPat
     (IN docID INT, IN pID INT)
 BEGIN 
-    SELECT T.ID, T.Result, T.Note
+    SELECT T.TName, T.Result, T.Note
     FROM Test as T 
     JOIN EXAMINATION as E ON E.PatientID = pID
     JOIN TakeTest as TT ON TT.TestID = T.ID
@@ -77,11 +78,12 @@ BEGIN
 END;    
 -- CALL getTestOfBPat(345615634, 123456789);
 --7
+use HOSPITAL;
 DROP PROCEDURE IF EXISTS getFTestOfBPat;
 CREATE PROCEDURE getFTestOfBPat
     (IN docID INT, IN pID INT)
 BEGIN 
-    SELECT T.ID, T.Result
+    SELECT T.TName, T.Result
     FROM Ftest as T
     JOIN EXAMINATION as E ON E.PatientID = pID
     JOIN TakeTest as TT ON TT.FTestID = T.ID

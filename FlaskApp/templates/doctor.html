@@ -22,26 +22,33 @@
       <div class="col-sm-1"></div>
       <div class="col-sm-3">
         <ul class="nav nav-pills nav-stacked">
-          <li {% if tabidx == "update" %} class="active" {% endif %}><a data-toggle="pill" href="#update">Update Patient</a></li>
-          <li {% if tabidx == "list" %} class="active" {% endif %}><a data-toggle="pill" href="#today">Patient List</a></li>
-          <!-- <li {% if tabidx == "diag" %} class="active" {% endif %}><a data-toggle="pill" href="#diag">Diagnosis of Patient</a></li>
-          <li {% if tabidx == "diag" %} class="active" {% endif %}><a data-toggle="pill" href="#last">Boarded Patient</a></li>
-          <li {% if tabidx == "diag" %} class="active" {% endif %}><a data-toggle="pill" href="#last">Boarded Patient</a></li> -->
+          <li {% if tabidx=="update" %} class="active" {% endif %}><a data-toggle="pill" href="#update">Update
+              Patient</a></li>
+          <li {% if tabidx=="list" %} class="active" {% endif %}><a data-toggle="pill" href="#list">Patient List</a>
+          </li>
+          <li {% if tabidx=="detail" %} class="active" {% endif %}><a data-toggle="pill" href="#detail">Patient
+              Detail</a></li>
         </ul>
       </div>
       <div class="col-sm-7">
         <div class="tab-content">
-          <div id="list" {% if tabidx == "list" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+          <div id="list" {% if tabidx=="list" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {%
+            endif %}>
             <ul class="nav nav-tabs">
-              <li {% if tabidx2 == "day" %} class="active" {% endif %}><a data-toggle="tab" href="#day">By day</a></li>
-              <li {% if tabidx2 == "disease" %} class="active" {% endif %}><a data-toggle="tab" href="#disease">By disease</a></li>
-              <li {% if tabidx2 == "abnormal" %} class="active" {% endif %}><a data-toggle="tab" href="#abnormal">Abnormal Patient</a></li>
-              <li {% if tabidx2 == "cured" %} class="active" {% endif %}><a data-toggle="tab" href="#cured">Cured</a></li>
-              <li {% if tabidx2 == "less" %} class="active" {% endif %}><a data-toggle="tab" href="#less">Less drug used</a></li>
-              <li {% if tabidx2 == "recover" %} class="active" {% endif %}><a data-toggle="tab" href="#recover">Recovering</a></li>
+              <li {% if tabidx2=="day" %} class="active" {% endif %}><a data-toggle="tab" href="#day">By dates</a></li>
+              <li {% if tabidx2=="disease" %} class="active" {% endif %}><a data-toggle="tab" href="#disease">By
+                  disease</a></li>
+              <li {% if tabidx2=="abnormal" %} class="active" {% endif %}><a data-toggle="tab" href="#abnormal">Abnormal
+                  Patient</a></li>
+              <li {% if tabidx2=="cured" %} class="active" {% endif %}><a data-toggle="tab" href="#cured">Cured</a></li>
+              <li {% if tabidx2=="less" %} class="active" {% endif %}><a data-toggle="tab" href="#less">Less drug
+                  used</a></li>
+              <li {% if tabidx2=="recover" %} class="active" {% endif %}><a data-toggle="tab"
+                  href="#recover">Recovering</a></li>
             </ul>
             <div class="tab-content">
-              <div id="day" {% if tabidx == "day" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>                
+              <div id="day" {% if tabidx2=="day" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {%
+                endif %}>
                 <form class="form-inline" action="{{url_for('getPat')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
@@ -60,32 +67,39 @@
                     </div>
                   </div>
                 </form>
-                <table class="table table-hover">       
+                <table class="table table-hover">
+
                   <head>
-                  <tr style="background-color: cornflowerblue;">         
-                    <th>SSN</th>
-                    <th>Last Name</th>
-                    <th>Minit</th>
-                    <th>First Name</th>
-                    <th>Birth Date</th>     
-                    <th>Address</th>                     
-                  </tr>       
+                    <tr>
+                      <h4><b>{{dates}}</b></h4>
+                    </tr>
+                    <tr style="background-color: cornflowerblue;">
+                      <th>SSN</th>
+                      <th>Last Name</th>
+                      <th>Minit</th>
+                      <th>First Name</th>
+                      <th>Birth Date</th>
+                      <th>Address</th>
+                    </tr>
                   </head>
+
                   <body>
-                  {% for item in patList %}
-                  <tr>         
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>                 
-                    <td>{{item[5]}}</td>        
-                  </tr>
-                  {% endfor %}
+                    {% for item in patList %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                      <td>{{item[5]}}</td>
+                    </tr>
+                    {% endfor %}
                   </body>
                 </table>
               </div>
-              <div id="disease" {% if tabidx == "disease" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+
+              <div id="disease" {% if tabidx2=="disease" %} class="tab-pane fade in active" {% else %}
+                class="tab-pane fade" {% endif %}>
                 <form class="form-inline" action="{{url_for('disProc')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
@@ -96,8 +110,8 @@
                     <label class="control-label" for="dis"> Disease</label>
                     <input class="form-control" type="text" id="dis" name="disease" list="dislist">
                     <datalist id="dislist">
-                      {% for item in diseaseList %}      
-                        <option>{{item[0]}}</option>
+                      {% for item in diseaseList %}
+                      <option>{{item[0]}}</option>
                       {% endfor %}
                     </datalist>
                     </input>
@@ -109,30 +123,36 @@
                     </div>
                   </div>
                 </form>
-                <table class="table table-hover">       
+                <table class="table table-hover">
+
                   <head>
-                  <tr style="background-color: cornflowerblue;">         
-                    <th>SSN</th>
-                    <th>Last Name</th>
-                    <th>Minit</th>
-                    <th>First Name</th>
-                    <th>Birth Date</th>     
-                    <th>Address</th>                     
-                  </tr>       
+                    <tr style="background-color: cornflowerblue;">
+                      <th>SSN</th>
+                      <th>Last Name</th>
+                      <th>Minit</th>
+                      <th>First Name</th>
+                      <th>Birth Date</th>
+                      <th>Address</th>
+                    </tr>
                   </head>
+
                   <body>
-                  {% for item in patDis %}
-                  <tr>         
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>                 
-                    <td>{{item[5]}}</td>        
-                  </tr>
-                  {% endfor %}
+                    {% for item in patDis %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                      <td>{{item[5]}}</td>
+                    </tr>
+                    {% endfor %}
+                  </body>
+                </table>
               </div>
-              <div id="abnormal" {% if tabidx == "abnormal" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+
+              <div id="abnormal" {% if tabidx2=="abnormal" %} class="tab-pane fade in active" {% else %}
+                class="tab-pane fade" {% endif %}>
                 <form class="form-inline" action="{{url_for('disAbProc')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
@@ -143,8 +163,8 @@
                     <label class="control-label" for="dis"> Disease</label>
                     <input class="form-control" type="text" id="dis" name="disease" list="dislist">
                     <datalist id="dislist">
-                      {% for item in diseaseList %}      
-                        <option>{{item[0]}}</option>
+                      {% for item in diseaseList %}
+                      <option>{{item[0]}}</option>
                       {% endfor %}
                     </datalist>
                     </input>
@@ -156,58 +176,66 @@
                     </div>
                   </div>
                 </form>
-                <table class="table table-hover">       
+                <table class="table table-hover">
+
                   <head>
-                  <tr style="background-color: cornflowerblue;">         
-                    <th>SSN</th>
-                    <th>Last Name</th>
-                    <th>Minit</th>
-                    <th>First Name</th>
-                    <th>Birth Date</th>     
-                    <th>Address</th>                     
-                  </tr>       
+                    <tr style="background-color: cornflowerblue;">
+                      <th>SSN</th>
+                      <th>Last Name</th>
+                      <th>Minit</th>
+                      <th>First Name</th>
+                      <th>Birth Date</th>
+                      <th>Address</th>
+                    </tr>
                   </head>
+
                   <body>
-                  {% for item in patAbDis %}
-                  <tr>         
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>                 
-                    <td>{{item[5]}}</td>        
-                  </tr>
-                  {% endfor %}
+                    {% for item in patAbDis %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                      <td>{{item[5]}}</td>
+                    </tr>
+                    {% endfor %}
                   </body>
                 </table>
               </div>
-              <div id="cured" {% if tabidx == "cured" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
-                <table class="table table-hover">       
+
+              <div id="cured" {% if tabidx2=="cured" %} class="tab-pane fade in active" {% else %} class="tab-pane fade"
+                {% endif %}>
+                <table class="table table-hover">
+
                   <head>
-                  <tr style="background-color: cornflowerblue;">         
-                    <th>SSN</th>
-                    <th>Last Name</th>
-                    <th>Minit</th>
-                    <th>First Name</th>
-                    <th>Birth Date</th>     
-                    <th>Address</th>                     
-                  </tr>       
+                    <tr style="background-color: cornflowerblue;">
+                      <th>SSN</th>
+                      <th>Last Name</th>
+                      <th>Minit</th>
+                      <th>First Name</th>
+                      <th>Birth Date</th>
+                      <th>Address</th>
+                    </tr>
                   </head>
+
                   <body>
-                  {% for item in patDis %}
-                  <tr>         
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>                 
-                    <td>{{item[5]}}</td>        
-                  </tr>
-                  {% endfor %}
+                    {% for item in patDis %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                      <td>{{item[5]}}</td>
+                    </tr>
+                    {% endfor %}
                   </body>
                 </table>
               </div>
-              <div id="less" {% if tabidx == "less" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+
+              <div id="less" {% if tabidx2=="less" %} class="tab-pane fade in active" {% else %} class="tab-pane fade"
+                {% endif %}>
                 <form class="form-inline" action="{{url_for('getBPatWithDecUsed')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
@@ -218,8 +246,8 @@
                     <label class="control-label" for="med"> Medicine</label>
                     <input class="form-control" type="text" id="med" name="medicine" list="medlist">
                     <datalist id="medlist">
-                      {% for item in medList %}      
-                        <option>{{item[0]}}</option>
+                      {% for item in medList %}
+                      <option>{{item[0]}}</option>
                       {% endfor %}
                     </datalist>
                     </input>
@@ -231,32 +259,36 @@
                     </div>
                   </div>
                 </form>
-                <table class="table table-hover">       
+                <table class="table table-hover">
+
                   <head>
-                  <tr style="background-color: cornflowerblue;">         
-                    <th>SSN</th>
-                    <th>Last Name</th>
-                    <th>Minit</th>
-                    <th>First Name</th>
-                    <th>Birth Date</th>     
-                    <th>Address</th>                 
-                  </tr>       
+                    <tr style="background-color: cornflowerblue;">
+                      <th>SSN</th>
+                      <th>Last Name</th>
+                      <th>Minit</th>
+                      <th>First Name</th>
+                      <th>Birth Date</th>
+                      <th>Address</th>
+                    </tr>
                   </head>
+
                   <body>
-                  {% for item in lessMed %}
-                  <tr>         
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>                 
-                    <td>{{item[5]}}</td> 
-                  </tr>
-                  {% endfor %}
+                    {% for item in lessMed %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                      <td>{{item[5]}}</td>
+                    </tr>
+                    {% endfor %}
                   </body>
                 </table>
               </div>
-              <div id="recover" {% if tabidx == "recover" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {% endif %}>
+
+              <div id="recover" {% if tabidx2=="recover" %} class="tab-pane fade in active" {% else %}
+                class="tab-pane fade" {% endif %}>
                 <form class="form-inline" action="{{url_for('getPatWithNorAbnorRes')}}" method="POST">
                   <div class="row">
                     <div class="col-sm-12">
@@ -267,8 +299,8 @@
                     <label class="control-label" for="test"> Test</label>
                     <input class="form-control" type="text" id="test" name="test" list="testlist">
                     <datalist id="testlist">
-                      {% for item in testList %}      
-                        <option>{{item[0]}}</option>
+                      {% for item in testList %}
+                      <option>{{item[0]}}</option>
                       {% endfor %}
                     </datalist>
                     </input>
@@ -280,32 +312,369 @@
                     </div>
                   </div>
                 </form>
-                <table class="table table-hover">       
+                <table class="table table-hover">
+
                   <head>
-                  <tr style="background-color: cornflowerblue;">         
-                    <th>SSN</th>
-                    <th>Last Name</th>
-                    <th>Minit</th>
-                    <th>First Name</th>
-                    <th>Birth Date</th>     
-                    <th>Address</th>                 
-                  </tr>       
+                    <tr style="background-color: cornflowerblue;">
+                      <th>SSN</th>
+                      <th>Last Name</th>
+                      <th>Minit</th>
+                      <th>First Name</th>
+                      <th>Birth Date</th>
+                      <th>Address</th>
+                    </tr>
                   </head>
+
                   <body>
-                  {% for item in norAb %}
-                  <tr>         
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
-                    <td>{{item[2]}}</td>
-                    <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>                 
-                    <td>{{item[5]}}</td> 
-                  </tr>
-                  {% endfor %}
+                    {% for item in norAb %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                      <td>{{item[5]}}</td>
+                    </tr>
+                    {% endfor %}
                   </body>
                 </table>
               </div>
             </div>
+          </div>
+          <div id="detail" {% if tabidx=="detail" %} class="tab-pane fade in active" {% else %} class="tab-pane fade" {%
+            endif %}>
+            <form class="form-inline" action="{{url_for('getPatDetail')}}" method="POST">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6></h6>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="pat"> Patient ID</label>
+                <input class="form-control" type="text" id="pat" name="patID">
+                </input>
+              </div>
+              <button type="submit" class="btn btn-info">Search</button>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6></h6>
+                </div>
+              </div>
+            </form>
+            <h4><b>{{patID}}</b></h4>
+            <ul class="nav nav-tabs">
+              <li><a data-toggle="tab" href="#diag">Diagnosis</a>
+              </li>
+              <li><a data-toggle="tab" href="#medicine">Medicine</a></li>
+              <li><a data-toggle="tab" href="#testres">Test</a></li>
+              <li><a data-toggle="tab" href="#film">Film</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="diag" class="tab-pane fade in active">
+                <table class="table table-hover">
+
+                  <head>
+
+                    <tr style="background-color: cornflowerblue;">
+                      <th>Diagnosis</th>
+                    </tr>
+                  </head>
+
+                  <body>
+                    {% for item in diagnosis %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                    </tr>
+                    {% endfor %}
+                  </body>
+                </table>
+              </div>
+              <div id="medicine" class="tab-pane fade">
+                <table class="table table-hover">
+
+                  <head>
+                    <tr style="background-color: cornflowerblue;">
+                      <th>Dates</th>
+                      <th>Amount</th>
+                      <th>Usage Description</th>
+                      <th>Name</th>
+                      <th>Prescription ID</th>
+                    </tr>
+                  </head>
+
+                  <body>
+                    {% for item in medicine %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>{{item[3]}}</td>
+                      <td>{{item[4]}}</td>
+                    </tr>
+                    {% endfor %}
+                  </body>
+                </table>
+              </div>
+              <div id="testres" class="tab-pane fade">
+                <table class="table table-hover">
+
+                  <head>
+                    <tr style="background-color: cornflowerblue;">
+                      <th>Name</th>
+                      <th>Result</th>
+                      <th>Note</th>
+                    </tr>
+                  </head>
+
+                  <body>
+                    {% for item in test %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                  </body>
+                </table>
+              </div>
+              <div id="film" class="tab-pane fade">
+                <table class="table table-hover">
+
+                  <head>
+                    <tr style="background-color: cornflowerblue;">
+                      <th>Name</th>
+                      <th>Result</th>
+                    </tr>
+                  </head>
+
+                  <body>
+                    {% for item in film %}
+                    <tr>
+                      <td>{{item[0]}}</td>
+                      <td>{{item[1]}}</td>
+                    </tr>
+                    {% endfor %}
+                  </body>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div id="updatePat" {% if tabidx=="updatePat" %} class="tab-pane fade in active" {% else %}
+            class="tab-pane fade" {% endif %}>
+            <form class="form" action="{{url_for('getPatDetail')}}" method="POST">
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="shift"> Shift</label>
+                  <select class="form-control" id="shift" name="shift">
+                    <option>Morning</option>
+                    <option>Afternoon</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="dates"> Dates</label>
+                  <input class="form-control" type="date" id="dates" name="dates"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="patID"> Patient ID</label>
+                <input class="form-control" type="text" id="patID" name="patID"></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nurse"> Nurse ID</label>
+                <select class="form-control" id="nurse" name="nurseID">
+                  {% for item in nurseList %}
+                  <option>{{item[0]}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <h3><b>Test</b></h3>
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="tname1"> Test Name</label>
+                  <select class="form-control" id="tname1" name="tname1">
+                    {% for item in testList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="resTest1"> Result</label>
+                  <input class="form-control" type="text" id="resTest1" name="resTest1"></input>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="note1"> Note</label>
+                  <select class="form-control" id="note1" name="note1">
+                    <option>Normal</option>
+                    <option>Abnormal</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="tname2"> Test Name</label>
+                  <select class="form-control" id="tname2" name="tname2">
+                    {% for item in testList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="resTest2"> Result</label>
+                  <input class="form-control" type="text" id="resTest2" name="resTest2"></input>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="note2"> Note</label>
+                  <select class="form-control" id="note2" name="note2">
+                    <option>Normal</option>
+                    <option>Abnormal</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="tname3"> Test Name</label>
+                  <select class="form-control" id="tname3" name="tname3">
+                    {% for item in testList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="resTest3"> Result</label>
+                  <input class="form-control" type="text" id="resTest3" name="resTest3"></input>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="note3"> Note</label>
+                  <select class="form-control" id="note3" name="note3">
+                    <option>Normal</option>
+                    <option>Abnormal</option>
+                  </select>
+                </div>
+              </div>
+
+              <h3><b>Film Test</b></h3>
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="tname1"> Film Test Name</label>
+                  <select class="form-control" id="tname1" name="tname1">
+                    {% for item in filmList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="resTest1"> Result</label>
+                  <input class="form-control" type="text" id="resTest1" name="resTest1"></input>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="tname2"> Film Test Name</label>
+                  <select class="form-control" id="tname2" name="tname2">
+                    {% for item in filmList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="resTest2"> Result</label>
+                  <input class="form-control" type="text" id="resTest2" name="resTest2"></input>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="tname3"> Film Test Name</label>
+                  <select class="form-control" id="tname3" name="tname3">
+                    {% for item in filmList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="resTest3"> Result</label>
+                  <input class="form-control" type="text" id="resTest3" name="resTest3"></input>
+                </div>
+              </div>
+
+              <h3><b>Medicine</b></h3>
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="mname1"> Medicine Name</label>
+                  <select class="form-control" id="mname1" name="mname1">
+                    {% for item in medList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="amount1"> Amount</label>
+                  <input class="form-control" type="text" id="amount1" name="amount1"></input>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="usageDes1"> Usage</label>
+                  <input class="form-control" type='text' id="usageDes1" name="usageDes1"></input>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="mname2"> Medicine Name </label>
+                  <select class="form-control" id="mname2" name="mname2">
+                    {% for item in medList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="amount2"> Amount</label>
+                  <input class="form-control" type="text" id="amount2" name="amount2"></input>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="usageDes2"> Usage</label>
+                  <input class="form-control" type='text' id="usageDes2" name="usageDes2"></input>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="mname3"> Medicine Name </label>
+                  <select class="form-control" id="mname3" name="mname3">
+                    {% for item in medList %}
+                    <option>{{item[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="amount3"> Amount</label>
+                  <input class="form-control" type="text" id="amount3" name="amount3"></input>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="usageDes3"> Usage</label>
+                  <input class="form-control" type='text' id="usageDes3" name="usageDes3"></input>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="control-label" for="diet"> Diet</label>
+                <input class="form-control" type='text' id="diet" name="diet"></input>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label" for="diaResult"> Diagnosis</label>
+                <input class="form-control" type='text' id="diaResult" name="diaResult"></input>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6></h6>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-info">Submit</button>
+              
+            </form>
           </div>
         </div>
       </div>
