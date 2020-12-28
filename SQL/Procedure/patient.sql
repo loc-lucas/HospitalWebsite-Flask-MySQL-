@@ -1,4 +1,4 @@
---1
+--1: Update patient info
 DROP PROCEDURE IF EXISTS updateInfo;
 CREATE PROCEDURE updateInfo
     (IN pID INT, IN insurID INT, IN lname VARCHAR(255), IN minit VARCHAR(255), IN fname VARCHAR(255), IN bdate DATE, IN addr VARCHAR(255))
@@ -14,13 +14,8 @@ BEGIN
     WHERE ID = pID
     ;
 END;
-    -- IF lname != '' THEN SET LName = insurID END IF;
-    -- IF minit != '' THEN SET Minit = insurID END IF;
-    -- IF fname != '' THEN SET Fname = insurID END IF;
-    -- IF bdate != '' THEN SET Bdate = insurID END IF;
-    -- IF addr != '' THEN SET Addr = insurID END IF;
--- SET InsurID = insurID, LName = lname, Minit = minit, Fname = fname, Bdate = bdate, Addr = addr
---2
+
+--2: Get list of medicine that they has used in the latest examination
 DROP PROCEDURE IF EXISTS getMedLatest;
 CREATE PROCEDURE getMedLatest
     (IN pID INT)
@@ -40,9 +35,8 @@ BEGIN
         )
     ;
 END;
--- CALL getMedLatest(346282624);
 
---3
+--3: Get list of medicine that they has used from all examinations
 DROP PROCEDURE IF EXISTS getMedAll;
 CREATE PROCEDURE getMedAll
     (IN pID INT)
@@ -54,9 +48,8 @@ BEGIN
     JOIN PRESCRIPTION as pre ON pre.ExamID = e.ID AND m.PresID = pre.ID                    
     ;
 END;     
--- CALL getMedAll(346282624);
 
--- -- --4
+--4: See test result from the latest examination
 DROP PROCEDURE IF EXISTS getTestResLatest;
 CREATE PROCEDURE getTestResLatest
     (IN pID INT)
@@ -77,6 +70,7 @@ BEGIN
     ;
 END;
 
+-- See result of latest film test
 DROP PROCEDURE IF EXISTS getFTestResLatest;
 CREATE PROCEDURE getFTestResLatest
     (IN pID INT)
@@ -96,8 +90,8 @@ BEGIN
         )
     ;
 END;
--- CALL getTestResLatest(123456789);
--- -- --5
+
+-- 5: Get list of all test that has taken
 DROP PROCEDURE IF EXISTS getAllTest;
 CREATE PROCEDURE getAllTest 
     (IN pID INT)
@@ -109,8 +103,8 @@ BEGIN
     JOIN TakeTest as tt ON tt.ExamID = e.ID AND tt.TestID = t.ID     
     ;   
 END; 
--- CALL getAllTest(123456789);
 
+-- Get result of all film tests
 DROP PROCEDURE IF EXISTS getAllFTest;
 CREATE PROCEDURE getAllFTest 
     (IN pID INT)
@@ -123,7 +117,7 @@ BEGIN
     ;   
 END; 
 
--- --6
+-- 6: Get list of all test with abnormal note of 1 test they had taken-- --6
 DROP PROCEDURE IF EXISTS getAllAbnorTest;
 CREATE PROCEDURE getAllAbnorTest
     (IN pID INT)
@@ -136,9 +130,8 @@ BEGIN
     WHERE t.Note = 'Abnormal'             
     ;
 END;
--- CALL getAllAbnorTest(123456789,'Thigh');
 
--- --7
+--7: Get list of doctor that examined them in the latest examination
 DROP PROCEDURE IF EXISTS getDocLatest;
 CREATE PROCEDURE getDocLatest
     (IN pID INT)
@@ -191,9 +184,8 @@ BEGIN
     )
     ;
 END;
--- CALL getDocLatest(346282624);
 
--- --8
+-- 8: Get list of doctor that examined them from all examinations
 DROP PROCEDURE IF EXISTS getAllDoc;
 CREATE PROCEDURE getAllDoc
     (IN pID INT)
@@ -221,9 +213,8 @@ BEGIN
     )
     ;    
 END;
--- CALL getAllDoc(346282624);
 
--- --9
+--9: Get diet prescription from the latest examination
 DROP PROCEDURE IF EXISTS getDietLatest;
 CREATE PROCEDURE getDietLatest
     (IN pID INT)
@@ -242,9 +233,8 @@ BEGIN
         )
     ;
 END;
--- CALL getDietLatest(346282624);
 
--- --10
+--10: Get a list of all diet prescription in all examination
 DROP PROCEDURE IF EXISTS getAllDiet;
 CREATE PROCEDURE getAllDiet
     (IN pID INT)
@@ -255,4 +245,4 @@ BEGIN
     JOIN EXAMINATION as e ON e.PatientID = p.ID AND pre.ExamID = e.ID   
     ;     
 END;
--- CALL getAllDiet(830185245);
+

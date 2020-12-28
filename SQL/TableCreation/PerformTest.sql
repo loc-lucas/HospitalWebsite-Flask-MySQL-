@@ -8,4 +8,3 @@ create table PERFORMTEST(
     FOREIGN KEY(TestID) REFERENCES Test(ID),
     FOREIGN KEY(ShiftID) REFERENCES SHIFT(ID)
 );
--- delete from PERFORMTEST;

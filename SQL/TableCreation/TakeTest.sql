@@ -1,6 +1,5 @@
 use HOSPITAL;
--- DROP TABLE TakeTest;
-create table TakeTest(
+ table TAKETEST(
     ExamID INTEGER NOT NULL,
     TestID INTEGER DEFAULT 0,
     FTestID INTEGER DEFAULT 0,
